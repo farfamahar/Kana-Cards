@@ -52,6 +52,49 @@ function App() {
 		{ romanji: 'n', hiragana: 'ん' }
   ]
 
+  const [input, setInput] = useState(0);
+  const [current, setCurrent] = useState(0)
+
+  const [streak, setStreak] = useState(0)
+  const [maxStreak, setMaxStreak] = useState(0);
+
+  const [error, setError] = useState(false);
+
+  const setRandomHiragana = () => {
+    const randonIndex = Math.floor(Math.random() * hiragana.length)
+    setCurrent(randomIndex)
+  }
+
+  const handleChange = evt => {
+    setInput(evt.target.value)
+  }
+
+  const handleSubmit = evt => {
+    evt.preventDefault()
+
+    if(input.toLowerCase() === hiragana[current].romanji){
+      setStreak(streak + 1)
+      setMaxStreak(Math.max(streak,maxStreak))
+      setError(false)
+
+      localStorage.setItem(Math.max(streak,maxStreak))
+      localStorage.setItem('streak', streak + 1)
+    }
+      else{
+        setStreak(0)
+        setError(`Incorrect. The correct answer for ${hiragana[current].hiragana} is ${hiragana[current].romanji}`)
+        localStorage.setItem('streak',0)
+      }
+
+      setInput('');
+      setRandomHiragana()
+    }
+  }
+
+
+
+
+
   return (
     <div className="App">
      <h1>Hello World</h1> 
