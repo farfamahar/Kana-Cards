@@ -1,32 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const hiragana = [
+    { romanji: 'a', hiragana: 'あ' },
+		{ romanji: 'i', hiragana: 'い' },
+		{ romanji: 'u', hiragana: 'う' },
+		{ romanji: 'e', hiragana: 'え' },
+		{ romanji: 'o', hiragana: 'お' },
+		{ romanji: 'ka', hiragana: 'か' },
+		{ romanji: 'ki', hiragana: 'き' },
+		{ romanji: 'ku', hiragana: 'く' },
+		{ romanji: 'ke', hiragana: 'け' },
+		{ romanji: 'ko', hiragana: 'こ' },
+		{ romanji: 'sa', hiragana: 'さ' },
+		{ romanji: 'shi', hiragana: 'し' },
+		{ romanji: 'su', hiragana: 'す' },
+		{ romanji: 'se', hiragana: 'せ' },
+		{ romanji: 'so', hiragana: 'そ' },
+		{ romanji: 'ta', hiragana: 'た' },
+		{ romanji: 'chi', hiragana: 'ち' },
+		{ romanji: 'tsu', hiragana: 'つ' },
+		{ romanji: 'te', hiragana: 'て' },
+		{ romanji: 'to', hiragana: 'と' },
+		{ romanji: 'na', hiragana: 'な' },
+		{ romanji: 'ni', hiragana: 'に' },
+		{ romanji: 'nu', hiragana: 'ぬ' },
+		{ romanji: 'ne', hiragana: 'ね' },
+		{ romanji: 'no', hiragana: 'の' },
+		{ romanji: 'ha', hiragana: 'は' },
+		{ romanji: 'hi', hiragana: 'ひ' },
+		{ romanji: 'fu', hiragana: 'ふ' },
+		{ romanji: 'he', hiragana: 'へ' },
+		{ romanji: 'ho', hiragana: 'ほ' },
+		{ romanji: 'ma', hiragana: 'ま' },
+		{ romanji: 'mi', hiragana: 'み' },
+		{ romanji: 'mu', hiragana: 'む' },
+		{ romanji: 'me', hiragana: 'め' },
+		{ romanji: 'mo', hiragana: 'も' },
+		{ romanji: 'ya', hiragana: 'や' },
+		{ romanji: 'yu', hiragana: 'ゆ' },
+		{ romanji: 'yo', hiragana: 'よ' },
+		{ romanji: 'ra', hiragana: 'ら' },
+		{ romanji: 'ri', hiragana: 'り' },
+		{ romanji: 'ru', hiragana: 'る' },
+		{ romanji: 're', hiragana: 'れ' },
+		{ romanji: 'ro', hiragana: 'ろ' },
+		{ romanji: 'wa', hiragana: 'わ' },
+		{ romanji: 'wo', hiragana: 'を' },
+		{ romanji: 'n', hiragana: 'ん' }
+  ]
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     <h1>Hello World</h1> 
     </div>
   )
 }
