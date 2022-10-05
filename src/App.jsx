@@ -103,7 +103,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-800 text-white text-center">
-     <h1>Hello World</h1> 
+      <header className="p-6 mb-8">
+        <h1 className='text-2xl font-bold uppercase' > Hiragana Quiz</h1>
+          <p> {streak} / {maxStreak}</p>
+      </header>
     </div>
   )
   }
