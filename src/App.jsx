@@ -61,7 +61,7 @@ function App() {
   const [error, setError] = useState(false);
 
   const setRandomHiragana = () => {
-    const randonIndex = Math.floor(Math.random() * hiragana.length)
+    const randomIndex = Math.floor(Math.random() * hiragana.length)
     setCurrent(randomIndex)
   }
 
@@ -96,18 +96,17 @@ function App() {
       setMaxStreak(localStorage.getItem('maxStreak') || 0)
     }, [])
 
-  }
-
 
 
 
 
 
   return (
-    <div className="App">
+    <div className="min-h-screen bg-slate-800 text-white text-center">
      <h1>Hello World</h1> 
     </div>
   )
-}
+  }
+
 
 export default App
