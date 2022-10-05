@@ -52,6 +52,55 @@ function App() {
 		{ romanji: 'n', hiragana: 'ん' }
   ]
 
+  const katakana = [
+    { romanji: 'a', katakana: 'ア' },
+		{ romanji: 'i', katakana: 'イ' },
+		{ romanji: 'u', katakana: 'ウ' },
+		{ romanji: 'e', katakana: 'エ' },
+		{ romanji: 'o', katakana: 'オ' },
+		{ romanji: 'ka', katakana: 'カ' },
+		{ romanji: 'ki', katakana: 'キ' },
+		{ romanji: 'ku', katakana: 'ク' },
+		{ romanji: 'ke', katakana: 'ケ' },
+		{ romanji: 'ko', katakana: 'コ' },
+		{ romanji: 'sa', katakana: 'サ' },
+		{ romanji: 'shi', katakana: 'シ' },
+		{ romanji: 'su', katakana: 'ス' },
+		{ romanji: 'se',katakana: 'セ' },
+		{ romanji: 'so', katakana: 'ソ' },
+		{ romanji: 'ta', katakana: 'タ' },
+		{ romanji: 'chi', katakana: 'チ' },
+		{ romanji: 'tsu', katakana: 'ツ' },
+		{ romanji: 'te', katakana: 'テ' },
+		{ romanji: 'to', katakana: 'ト' },
+		{ romanji: 'na', katakana: 'ナ' },
+		{ romanji: 'ni', katakana: 'ニ' },
+		{ romanji: 'nu', katakana: 'ヌ' },
+		{ romanji: 'ne', katakana: 'ネ' },
+		{ romanji: 'no', katakana: 'ノ' },
+		{ romanji: 'ha', katakana: 'ハ' },
+		{ romanji: 'hi', katakana: 'ヒ' },
+		{ romanji: 'fu', katakana: 'フ' },
+		{ romanji: 'he', katakana: 'ヘ' },
+		{ romanji: 'ho', katakana: 'ホ' },
+		{ romanji: 'ma', katakana: 'マ' },
+		{ romanji: 'mi', katakana: 'ミ' },
+		{ romanji: 'mu', katakana: 'ム' },
+		{ romanji: 'me', katakana: 'メ' },
+		{ romanji: 'mo', katakana: 'モ' },
+		{ romanji: 'ya', katakana: 'ヤ' },
+		{ romanji: 'yu', katakana: 'ユ' },
+		{ romanji: 'yo', katakana: 'ヨ' },
+		{ romanji: 'ra', katakana: 'ラ' },
+		{ romanji: 'ri', katakana: 'リ' },
+		{ romanji: 'ru', katakana: 'ル' },
+		{ romanji: 're', katakana: 'レ' },
+		{ romanji: 'ro', katakana: 'ロ' },
+		{ romanji: 'wa', katakana: 'ワ' },
+		{ romanji: 'wo', katakana: 'ヲ' },
+		{ romanji: 'n', hiragana: 'ン' }
+  ]
+
   const [input, setInput] = useState('');
   const [current, setCurrent] = useState(0)
 
