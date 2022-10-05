@@ -89,7 +89,15 @@ function App() {
       setInput('');
       setRandomHiragana()
     }
+
+    useEffect( () => {
+      setRandomHiragana()
+      setStreak(localStorage.getItem('streak') || 0);
+      setMaxStreak(localStorage.getItem('maxStreak') || 0)
+    }, [])
+
   }
+
 
 
 
