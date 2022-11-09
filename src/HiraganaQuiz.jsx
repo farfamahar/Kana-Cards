@@ -54,7 +54,7 @@ function App() {
   let intervalId = 0;
   const [input, setInput] = useState('');
   const [current, setCurrent] = useState(0);
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState(1);
   const [pause, setPause] = useState(false);
 
   // const myform = useRef(null);
@@ -75,6 +75,7 @@ function App() {
   }
 
   const handlePause = () => {
+    setNum(num + 1)
     setError('');
     setPause(false)
     setInput('');
@@ -97,7 +98,7 @@ function App() {
     }
       else{
         setStreak(0)
-        setNum(num + 1)
+        // setNum(num + 1)
         setPause(true);
         setError(`The correct answer for 
         ${hiragana[current].hiragana} is ${hiragana[current].romanji}`)
@@ -135,12 +136,13 @@ function App() {
 
 
   return (
-
-      <div className="flex justify-center  bg-slate-800 text-black text-center">
-        <div className=" m-10 p-10 max-w-md rounded overflow-hidden shadow-lg bg-white" >
+<div className= "min-h-screen centerFlex bg-slate-50" >
+      <div className=" flex justify-center  bg-slate-50 text-black text-center">
+        <div className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right" >
+        <div className="card-inner ml-4">
       <header className="p-6 mb-8">
         <h1 className='text-2xl font-bold uppercase' > Hiragana Quiz</h1>
-          <p> {streak} / {maxStreak}</p>
+          <p> {num} / {hiragana.length}</p>
       </header>
     <div> 
       <div className="text-9xl font-bold mb-8">
@@ -156,13 +158,16 @@ function App() {
             value={input}
             onChange={handleChange}
             className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
-            text-center text-6xl "/>}
+            text-center text-2xl "/>}
             <button id="submitForm"></button>
           </form>
+          <div className='mb-3 pb-8'>
           {pause && <button onClick={handlePause}>Continue</button>}
+          </div>
         </div>
       </div>
-
+    </div>
+      </div>
       </div>
   )
   }
