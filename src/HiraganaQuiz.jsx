@@ -103,14 +103,12 @@ function App() {
         ${hiragana[current].hiragana} is ${hiragana[current].romanji}`)
         localStorage.setItem('streak',0)
       }
-      // autoSubmit();
       // setInput('');
       // setRandomHiragana()
     }
     
 
     useEffect( () => {
-      document.getElementById("hiraganaInput").focus();
       setRandomHiragana();
       setStreak(parseInt(localStorage.getItem('streak') || 0))
       setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))

@@ -53,15 +53,24 @@ function App() {
 		{ romanji: 'n', katakana: 'ン' }
   ]
   
-
+  let intervalId = 0;
   const [input, setInput] = useState('');
-  const [current, setCurrent] = useState(0)
+  const [num, setNum] = useState(0);
+  const [current, setCurrent] = useState(0);
+
+  const [pause, setPause] = useState(false);
 
   const [katakanaStreak, setKatakanaStreak] = useState(0)
   const [katakanaMaxStreak, setKatakanaMaxStreak] = useState(0);
 
   const [error, setError] = useState(false);
 
+  const handlePause = () => {
+    setError('');
+    setPause(false)
+    setInput('');
+    setRandomKatakana();
+  }
 
   const setRandomKatakana = () => {
     const randomIndex = Math.floor(Math.random() * katakana.length)
@@ -76,28 +85,47 @@ function App() {
     evt.preventDefault()
 
     if(input.toLowerCase() === katakana[current].romanji){
+      
       setKatakanaStreak(katakanaStreak + 1)
+      setNum(num + 1)
       setKatakanaMaxStreak(Math.max(katakanaStreak+1,katakanaMaxStreak))
       setError(false)
+      setInput('');
+      setRandomKatakana()
+
 
       localStorage.setItem('katakanaMaxStreak', Math.max(katakanaStreak,katakanaMaxStreak))
       localStorage.setItem('katakanaStreak', katakanaStreak + 1)
     }
       else{
         setKatakanaStreak(0)
+        setNum(num + 1)
+        setPause(true);
         setError(`The correct answer for ${katakana[current].katakana} is ${katakana[current].romanji}`)
         localStorage.setItem('katakanaStreak',0)
       }
 
-      setInput('');
-      setRandomKatakana()
+      // setInput('');
+      // setRandomKatakana()
     }
 
     useEffect( () => {
       setRandomKatakana()
+      setRandomKatakana()
       setKatakanaStreak(parseInt(localStorage.getItem('katakanaStreak') || 0))
       setKatakanaMaxStreak(parseInt(localStorage.getItem('katakanaMaxStreak') || 0))
     }, [])
+
+    useEffect(() => {
+      clearInterval(intervalId)
+      intervalId = setInterval(() => {
+        if(!pause){
+        const formSubmitButton = document.getElementById("submitForm");
+        formSubmitButton.click();
+        }
+      }, 3000);
+      return () => clearInterval(intervalId);
+    },[num,pause])
 
 
 
@@ -120,16 +148,18 @@ function App() {
 
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={input}
-            onChange={handleChange}
-            className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
-            text-center text-6xl "/>
-          </form>
+          {!pause &&<input
+              autoFocus
+              type="text"
+              value={input}
+              onChange={handleChange}
+              className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
+              text-center text-6xl "/>}
+              <button id="submitForm"></button>
+            </form>
+            {pause && <button onClick={handlePause}>Continue</button>}
+          </div>
         </div>
-        </div>
-
     </div>
   )
   }
