@@ -128,17 +128,10 @@ function App() {
       return () => clearInterval(intervalId);
     },[num,pause])
 
-
-
-
-
-
-
-
   return (
 <div className= "min-h-screen centerFlex bg-slate-50" >
-      <div className=" flex justify-center  bg-slate-50 text-black text-center">
-        <div className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right" >
+      <div className=" flex justify-center  bg-slate-50 text-black text-center ">
+        <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
       <header className="p-6 mb-8">
         <h1 className='text-2xl font-bold uppercase' > Hiragana Quiz</h1>
