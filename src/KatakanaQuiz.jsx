@@ -147,6 +147,19 @@ function App() {
       return () => clearInterval(intervalId2);
     },[num,pause])
 
+    useEffect(() => {
+      setTimeout(() => {
+
+        const x = document.getElementById("katakanaInput");
+        x.focus({
+          preventScroll: true
+        });
+    
+      }, 100);
+      return () => clearInterval(intervalId2);
+    },[num,pause])
+
+
 
 
 
@@ -171,7 +184,7 @@ function App() {
 
 
         <form onSubmit={handleSubmit}>
-          {!pause &&<input
+          {!pause &&<input id="katakanaInput"
               autoFocus
               type="text"
               value={input}

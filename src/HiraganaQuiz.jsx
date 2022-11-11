@@ -148,6 +148,18 @@ function App() {
       return () => clearInterval(intervalId2);
     },[num,pause])
 
+    useEffect(() => {
+      setTimeout(() => {
+
+        const x = document.getElementById("hiraganaInput");
+        x.focus({
+          preventScroll: true
+        });
+    
+      }, 100);
+      return () => clearInterval(intervalId2);
+    },[num,pause])
+
 
   return (
 <div className= "min-h-screen centerFlex bg-slate-50" >
