@@ -52,6 +52,8 @@ function App() {
   ]
 
   let intervalId = 0;
+  let intervalId2 = 0;
+
   const [input, setInput] = useState('');
   const [current, setCurrent] = useState(0);
   const [num, setNum] = useState(1);
@@ -62,6 +64,7 @@ function App() {
 
   const [streak, setStreak] = useState(0)
   const [maxStreak, setMaxStreak] = useState(0);
+  const [timerIsActive, setTimerIsActive] = useState(true);
 
   const [error, setError] = useState(false);
 
@@ -82,16 +85,22 @@ function App() {
     setRandomHiragana();
     // document.getElementById("hiraganaInput").focus();
   }
+
+
   const handleSubmit = evt => {
     evt.preventDefault()
+    if(input.length < 1 && timerIsActive){
+      
+    }
 
-    if(input.toLowerCase() === hiragana[current].romanji){
+   else if(input.toLowerCase() === hiragana[current].romanji){
       setStreak(streak + 1)
       setNum(num + 1)
       setMaxStreak(Math.max(streak+1,maxStreak))
       setError(false)
       setInput('');
-      setRandomHiragana()
+      setRandomHiragana();
+      setTimerIsActive(true);
 
       localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
       localStorage.setItem('streak', streak + 1)
@@ -103,6 +112,7 @@ function App() {
         setError(`The correct answer for 
         ${hiragana[current].hiragana} is ${hiragana[current].romanji}`)
         localStorage.setItem('streak',0)
+        setTimerIsActive(true);
       }
       // setInput('');
       // setRandomHiragana()
@@ -116,7 +126,6 @@ function App() {
     }, [])
 
 
-
     useEffect(() => {
       clearInterval(intervalId)
       intervalId = setInterval(() => {
@@ -127,6 +136,18 @@ function App() {
       }, 3000);
       return () => clearInterval(intervalId);
     },[num,pause])
+
+    useEffect(() => {
+      clearInterval(intervalId2)
+      intervalId2 = setInterval(() => {
+        if(!pause){
+          setTimerIsActive(false);
+
+        }
+      }, 2900);
+      return () => clearInterval(intervalId2);
+    },[num,pause])
+
 
   return (
 <div className= "min-h-screen centerFlex bg-slate-50" >
@@ -153,10 +174,11 @@ function App() {
             className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
             text-center text-2xl "/>}
             <button id="submitForm"></button>
-          </form>
-          <div className='mb-3 pb-8'>
-          {pause && <button onClick={handlePause}>Continue</button>}
-          </div>
+            </form>
+  
+            <div className='mb-3 pb-8'>
+              {pause && <button onClick={handlePause}>Continue</button>}
+            </div>        
         </div>
       </div>
     </div>

@@ -54,6 +54,9 @@ function App() {
   ]
   
   let intervalId = 0;
+  let intervalId2 = 0;
+
+
   const [input, setInput] = useState('');
   const [num, setNum] = useState(1);
   const [current, setCurrent] = useState(0);
@@ -62,6 +65,7 @@ function App() {
 
   const [katakanaStreak, setKatakanaStreak] = useState(0)
   const [katakanaMaxStreak, setKatakanaMaxStreak] = useState(0);
+  const [timerIsActive, setTimerIsActive] = useState(true);
 
   const [error, setError] = useState(false);
 
@@ -84,6 +88,10 @@ function App() {
 
   const handleSubmit = evt => {
     evt.preventDefault()
+
+    if(input.length < 1 && timerIsActive){
+      
+    }
 
     if(input.toLowerCase() === katakana[current].romanji){
       
@@ -126,6 +134,17 @@ function App() {
         }
       }, 3000);
       return () => clearInterval(intervalId);
+    },[num,pause])
+
+    useEffect(() => {
+      clearInterval(intervalId2)
+      intervalId2 = setInterval(() => {
+        if(!pause){
+          setTimerIsActive(false);
+
+        }
+      }, 2900);
+      return () => clearInterval(intervalId2);
     },[num,pause])
 
 
