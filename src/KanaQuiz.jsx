@@ -1,110 +1,10 @@
 import { useState, useEffect } from 'react'
+import arrayShuffle from 'array-shuffle';
+
 
 function KanaQuiz(props) {
 
-  let kana = []
-
-
-  if(props.quiz == 'hiragana'){
-  kana = [
-    { romanji: 'a', kana: 'あ' },
-		{ romanji: 'i', kana: 'い' },
-		{ romanji: 'u', kana: 'う' },
-		{ romanji: 'e', kana: 'え' },
-		{ romanji: 'o', kana: 'お' },
-		{ romanji: 'ka', kana: 'か' },
-		{ romanji: 'ki', kana: 'き' },
-		{ romanji: 'ku', kana: 'く' },
-		{ romanji: 'ke', kana: 'け' },
-		{ romanji: 'ko', kana: 'こ' },
-		{ romanji: 'sa', kana: 'さ' },
-		{ romanji: 'shi', kana: 'し' },
-		{ romanji: 'su', kana: 'す' },
-		{ romanji: 'se', kana: 'せ' },
-		{ romanji: 'so', kana: 'そ' },
-		{ romanji: 'ta', kana: 'た' },
-		{ romanji: 'chi', kana: 'ち' },
-		{ romanji: 'tsu', kana: 'つ' },
-		{ romanji: 'te', kana: 'て' },
-		{ romanji: 'to', kana: 'と' },
-		{ romanji: 'na', kana: 'な' },
-		{ romanji: 'ni', kana: 'に' },
-		{ romanji: 'nu', kana: 'ぬ' },
-		{ romanji: 'ne', kana: 'ね' },
-		{ romanji: 'no', kana: 'の' },
-		{ romanji: 'ha', kana: 'は' },
-		{ romanji: 'hi', kana: 'ひ' },
-		{ romanji: 'fu', kana: 'ふ' },
-		{ romanji: 'he', kana: 'へ' },
-		{ romanji: 'ho', kana: 'ほ' },
-		{ romanji: 'ma', kana: 'ま' },
-		{ romanji: 'mi', kana: 'み' },
-		{ romanji: 'mu', kana: 'む' },
-		{ romanji: 'me', kana: 'め' },
-		{ romanji: 'mo', kana: 'も' },
-		{ romanji: 'ya', kana: 'や' },
-		{ romanji: 'yu', kana: 'ゆ' },
-		{ romanji: 'yo', kana: 'よ' },
-		{ romanji: 'ra', kana: 'ら' },
-		{ romanji: 'ri', kana: 'り' },
-		{ romanji: 'ru', kana: 'る' },
-		{ romanji: 're', kana: 'れ' },
-		{ romanji: 'ro', kana: 'ろ' },
-		{ romanji: 'wa', kana: 'わ' },
-		{ romanji: 'wo', kana: 'を' },
-		{ romanji: 'n', kana: 'ん' }
-  ]}
-
-else if(props.quiz == 'katakana'){
-  kana = [
-    { romanji: 'a', kana: 'ア' },
-		{ romanji: 'i', kana: 'イ' },
-		{ romanji: 'u', kana: 'ウ' },
-		{ romanji: 'e', kana: 'エ' },
-		{ romanji: 'o', kana: 'オ' },
-		{ romanji: 'ka', kana: 'カ' },
-		{ romanji: 'ki', kana: 'キ' },
-		{ romanji: 'ku', kana: 'ク' },
-		{ romanji: 'ke', kana: 'ケ' },
-		{ romanji: 'ko', kana: 'コ' },
-		{ romanji: 'sa', kana: 'サ' },
-		{ romanji: 'shi', kana: 'シ' },
-		{ romanji: 'su', kana: 'ス' },
-		{ romanji: 'se',kana: 'セ' },
-		{ romanji: 'so', kana: 'ソ' },
-		{ romanji: 'ta', kana: 'タ' },
-		{ romanji: 'chi', kana: 'チ' },
-		{ romanji: 'tsu', kana: 'ツ' },
-		{ romanji: 'te', kana: 'テ' },
-		{ romanji: 'to', kana: 'ト' },
-		{ romanji: 'na', kana: 'ナ' },
-		{ romanji: 'ni', kana: 'ニ' },
-		{ romanji: 'nu', kana: 'ヌ' },
-		{ romanji: 'ne', kana: 'ネ' },
-		{ romanji: 'no', kana: 'ノ' },
-		{ romanji: 'ha', kana: 'ハ' },
-		{ romanji: 'hi', kana: 'ヒ' },
-		{ romanji: 'fu', kana: 'フ' },
-		{ romanji: 'he', kana: 'ヘ' },
-		{ romanji: 'ho', kana: 'ホ' },
-		{ romanji: 'ma', kana: 'マ' },
-		{ romanji: 'mi', kana: 'ミ' },
-		{ romanji: 'mu', kana: 'ム' },
-		{ romanji: 'me', kana: 'メ' },
-		{ romanji: 'mo', kana: 'モ' },
-		{ romanji: 'ya', kana: 'ヤ' },
-		{ romanji: 'yu', kana: 'ユ' },
-		{ romanji: 'yo', kana: 'ヨ' },
-		{ romanji: 'ra', kana: 'ラ' },
-		{ romanji: 'ri', kana: 'リ' },
-		{ romanji: 'ru', kana: 'ル' },
-		{ romanji: 're', kana: 'レ' },
-		{ romanji: 'ro', kana: 'ロ' },
-		{ romanji: 'wa', kana: 'ワ' },
-		{ romanji: 'wo', kana: 'ヲ' },
-		{ romanji: 'n', kana: 'ン' }
-  ]
-}
+  const [kana,setKana] = useState([{}]);
 
   let intervalId = 0;
   let intervalId2 = 0;
@@ -112,10 +12,8 @@ else if(props.quiz == 'katakana'){
   const [input, setInput] = useState('');
   const [current, setCurrent] = useState(0);
   const [num, setNum] = useState(1);
+  const [correct, setCorrect] = useState(0);
   const [pause, setPause] = useState(false);
-
-  // const myform = useRef(null);
-
 
   const [streak, setStreak] = useState(0)
   const [maxStreak, setMaxStreak] = useState(0);
@@ -123,10 +21,9 @@ else if(props.quiz == 'katakana'){
 
   const [error, setError] = useState(false);
 
-
   const setRandomkana = () => {
     const randomIndex = Math.floor(Math.random() * kana.length)
-    setCurrent(randomIndex)
+    setCurrent(prev => prev+1)
   }
 
   const handleChange = evt => {
@@ -151,6 +48,7 @@ else if(props.quiz == 'katakana'){
 
    else if(input.toLowerCase() === kana[current].romanji){
       setStreak(streak + 1)
+      setCorrect(prev=>prev+1)
       setNum(num + 1)
       setMaxStreak(Math.max(streak+1,maxStreak))
       setError(false)
@@ -176,7 +74,111 @@ else if(props.quiz == 'katakana'){
     
 
     useEffect( () => {
-      setRandomkana();
+
+      if(props.quiz == 'hiragana'){
+        setKana([
+          { romanji: 'a', kana: 'あ' },
+          { romanji: 'i', kana: 'い' },
+          { romanji: 'u', kana: 'う' },
+          { romanji: 'e', kana: 'え' },
+          { romanji: 'o', kana: 'お' },
+          { romanji: 'ka', kana: 'か' },
+          { romanji: 'ki', kana: 'き' },
+          { romanji: 'ku', kana: 'く' },
+          { romanji: 'ke', kana: 'け' },
+          { romanji: 'ko', kana: 'こ' },
+          { romanji: 'sa', kana: 'さ' },
+          { romanji: 'shi', kana: 'し' },
+          { romanji: 'su', kana: 'す' },
+          { romanji: 'se', kana: 'せ' },
+          { romanji: 'so', kana: 'そ' },
+          { romanji: 'ta', kana: 'た' },
+          { romanji: 'chi', kana: 'ち' },
+          { romanji: 'tsu', kana: 'つ' },
+          { romanji: 'te', kana: 'て' },
+          { romanji: 'to', kana: 'と' },
+          { romanji: 'na', kana: 'な' },
+          { romanji: 'ni', kana: 'に' },
+          { romanji: 'nu', kana: 'ぬ' },
+          { romanji: 'ne', kana: 'ね' },
+          { romanji: 'no', kana: 'の' },
+          { romanji: 'ha', kana: 'は' },
+          { romanji: 'hi', kana: 'ひ' },
+          { romanji: 'fu', kana: 'ふ' },
+          { romanji: 'he', kana: 'へ' },
+          { romanji: 'ho', kana: 'ほ' },
+          { romanji: 'ma', kana: 'ま' },
+          { romanji: 'mi', kana: 'み' },
+          { romanji: 'mu', kana: 'む' },
+          { romanji: 'me', kana: 'め' },
+          { romanji: 'mo', kana: 'も' },
+          { romanji: 'ya', kana: 'や' },
+          { romanji: 'yu', kana: 'ゆ' },
+          { romanji: 'yo', kana: 'よ' },
+          { romanji: 'ra', kana: 'ら' },
+          { romanji: 'ri', kana: 'り' },
+          { romanji: 'ru', kana: 'る' },
+          { romanji: 're', kana: 'れ' },
+          { romanji: 'ro', kana: 'ろ' },
+          { romanji: 'wa', kana: 'わ' },
+          { romanji: 'wo', kana: 'を' },
+          { romanji: 'n', kana: 'ん' }
+        ])
+
+      }
+      
+      else if(props.quiz == 'katakana'){
+        setKana([
+          { romanji: 'a', kana: 'ア' },
+          { romanji: 'i', kana: 'イ' },
+          { romanji: 'u', kana: 'ウ' },
+          { romanji: 'e', kana: 'エ' },
+          { romanji: 'o', kana: 'オ' },
+          { romanji: 'ka', kana: 'カ' },
+          { romanji: 'ki', kana: 'キ' },
+          { romanji: 'ku', kana: 'ク' },
+          { romanji: 'ke', kana: 'ケ' },
+          { romanji: 'ko', kana: 'コ' },
+          { romanji: 'sa', kana: 'サ' },
+          { romanji: 'shi', kana: 'シ' },
+          { romanji: 'su', kana: 'ス' },
+          { romanji: 'se',kana: 'セ' },
+          { romanji: 'so', kana: 'ソ' },
+          { romanji: 'ta', kana: 'タ' },
+          { romanji: 'chi', kana: 'チ' },
+          { romanji: 'tsu', kana: 'ツ' },
+          { romanji: 'te', kana: 'テ' },
+          { romanji: 'to', kana: 'ト' },
+          { romanji: 'na', kana: 'ナ' },
+          { romanji: 'ni', kana: 'ニ' },
+          { romanji: 'nu', kana: 'ヌ' },
+          { romanji: 'ne', kana: 'ネ' },
+          { romanji: 'no', kana: 'ノ' },
+          { romanji: 'ha', kana: 'ハ' },
+          { romanji: 'hi', kana: 'ヒ' },
+          { romanji: 'fu', kana: 'フ' },
+          { romanji: 'he', kana: 'ヘ' },
+          { romanji: 'ho', kana: 'ホ' },
+          { romanji: 'ma', kana: 'マ' },
+          { romanji: 'mi', kana: 'ミ' },
+          { romanji: 'mu', kana: 'ム' },
+          { romanji: 'me', kana: 'メ' },
+          { romanji: 'mo', kana: 'モ' },
+          { romanji: 'ya', kana: 'ヤ' },
+          { romanji: 'yu', kana: 'ユ' },
+          { romanji: 'yo', kana: 'ヨ' },
+          { romanji: 'ra', kana: 'ラ' },
+          { romanji: 'ri', kana: 'リ' },
+          { romanji: 'ru', kana: 'ル' },
+          { romanji: 're', kana: 'レ' },
+          { romanji: 'ro', kana: 'ロ' },
+          { romanji: 'wa', kana: 'ワ' },
+          { romanji: 'wo', kana: 'ヲ' },
+          { romanji: 'n', kana: 'ン' }
+        ])
+      }
+      setKana(kana => arrayShuffle(kana))
+      // setRandomkana();
       setStreak(parseInt(localStorage.getItem('streak') || 0))
       setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))
     }, [])
@@ -219,7 +221,7 @@ else if(props.quiz == 'katakana'){
 
   return (
 <div className= "min-h-screen centerFlex bg-slate-50" >
-      <div className=" flex justify-center  bg-slate-50 text-black text-center ">
+      {num < 47 ? <div className=" flex justify-center  bg-slate-50 text-black text-center ">
         <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
       <header className="p-6 mb-8">
@@ -250,7 +252,7 @@ else if(props.quiz == 'katakana'){
         </div>
       </div>
     </div>
-      </div>
+      </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white"> <h1> Final Score {correct} out of {kana.length} </h1> </div>}
       </div>
   )
   }
