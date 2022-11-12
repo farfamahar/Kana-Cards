@@ -38,13 +38,18 @@ function App() {
     <div>
     {show &&
       <div  className=" min-h-screen  centerFlex ">
-      <div className=" text-white text-center max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pr-16 pl-16">
-      <header className="p-6 mb-4">
+      <div className=" text-white max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pr-16 pl-16">
+      <header className="p-6 mb-4 text-center">
         <h1 className='text-2xl font-bold uppercase mt-5 mb-5 text-black	' > Kana Cards</h1>
         <p className='text-black text-3xl'> (◡ ‿ ◡ ✿) </p>
       </header>
       <div className='mb-5 '>
-        <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4" onClick={handleHiraganaQuizChoice}> Hiragana</button>
+      <h1 className='text-1xl font-bold uppercase mt-5 mb-3 text-black	' > Quiz</h1>
+        <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded" onClick={handleHiraganaQuizChoice}> Hiragana</button>
+        <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4" onClick={handleKatakanaQuizChoice}> Katakana</button>
+        <hr className='mt-3 mb-3'/>
+        <h1 className='text-1xl font-bold uppercase mt-5 mb-3 text-black	' > Learn</h1>
+        <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded" onClick={handleHiraganaQuizChoice}> Hiragana</button>
         <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4" onClick={handleKatakanaQuizChoice}> Katakana</button>
       </div>
       </div>

@@ -65,6 +65,7 @@ function KanaQuiz(props) {
       setRandomkana();
       setTimerIsActive(true);
       setKey(prev=>prev+1)
+      
 
       localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
       localStorage.setItem('streak', streak + 1)
