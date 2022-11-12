@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import arrayShuffle from 'array-shuffle';
 import Confetti from 'react-confetti'
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+
 
 
 function KanaQuiz(props) {
@@ -11,6 +13,7 @@ function KanaQuiz(props) {
   let intervalId2 = 0;
 
   const [input, setInput] = useState('');
+  const [key, setKey] = useState(0);
   const [current, setCurrent] = useState(0);
   const [num, setNum] = useState(1);
   const [correct, setCorrect] = useState(0);
@@ -61,6 +64,7 @@ function KanaQuiz(props) {
       setInput('');
       setRandomkana();
       setTimerIsActive(true);
+      setKey(prev=>prev+1)
 
       localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
       localStorage.setItem('streak', streak + 1)
@@ -233,7 +237,7 @@ function KanaQuiz(props) {
   return (
 
  <div className= "min-h-screen centerFlex bg-slate-50" >
-      {num < 46 ? <div className=" flex justify-center  bg-slate-50 text-black text-center ">
+      {num < 46 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
         <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
       <header className="p-6 mb-8">
@@ -244,7 +248,7 @@ function KanaQuiz(props) {
       <div className="text-9xl font-bold mb-8">
         {kana[current].kana}
       </div>
-      {error && <p className="text-red-600 , text-center"> {error} </p>  }
+      {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
 
 
        <form id="myform"  onSubmit={handleSubmit}>
@@ -257,6 +261,17 @@ function KanaQuiz(props) {
             text-center text-2xl "/>}
             <button id="submitForm"></button>
             </form>
+
+            {!pause && <div className='flex justify-center'> <CountdownCircleTimer
+    isPlaying
+    duration={3}
+    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+    colorsTime={[3, 2, 1, 0]}
+    size={60}
+    key = {key}
+  >
+    {({ remainingTime }) => remainingTime}
+  </CountdownCircleTimer> </div>}
   
             <div className='mb-3'>
               {pause && <button className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' onClick={handlePause}>Continue</button>}
