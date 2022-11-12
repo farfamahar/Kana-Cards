@@ -46,7 +46,7 @@ function App() {
       </div>
       </div>
       </div>}
-      {quiz && <KanaQuiz quiz={quiz}/>}
+      {quiz && <KanaQuiz quiz={quiz} stateChanger={setShow}/>}
       <div className='bg-scroll'> </div>
     </div>
     

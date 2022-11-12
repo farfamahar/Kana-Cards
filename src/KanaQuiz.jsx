@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import arrayShuffle from 'array-shuffle';
+import Confetti from 'react-confetti'
 
 
 function KanaQuiz(props) {
@@ -37,6 +38,11 @@ function KanaQuiz(props) {
     setInput('');
     setRandomkana();
     // document.getElementById("kanaInput").focus();
+  }
+
+  const endQuiz = () => {
+    props.stateChanger(true)
+    setShow(false)
   }
 
 
@@ -186,23 +192,28 @@ function KanaQuiz(props) {
 
     useEffect(() => {
       clearInterval(intervalId)
-      intervalId = setInterval(() => {
+      if(num < 46){
+      intervalId = setTimeout(() => {
         if(!pause){
         const formSubmitButton = document.getElementById("submitForm");
         formSubmitButton.click();
         }
       }, 3000);
+    }
       return () => clearInterval(intervalId);
     },[num,pause])
 
     useEffect(() => {
       clearInterval(intervalId2)
-      intervalId2 = setInterval(() => {
+      if(num < 46){
+      intervalId2 = setTimeout(() => {
         if(!pause){
           setTimerIsActive(false);
 
         }
+        console.log("timer going off")
       }, 2900);
+    }
       return () => clearInterval(intervalId2);
     },[num,pause])
 
@@ -216,12 +227,13 @@ function KanaQuiz(props) {
     
       }, 100);
       return () => clearInterval(intervalId2);
-    },[num,pause])
+    },[])
 
 
   return (
-<div className= "min-h-screen centerFlex bg-slate-50" >
-      {num < 47 ? <div className=" flex justify-center  bg-slate-50 text-black text-center ">
+
+ <div className= "min-h-screen centerFlex bg-slate-50" >
+      {num < 46 ? <div className=" flex justify-center  bg-slate-50 text-black text-center ">
         <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
       <header className="p-6 mb-8">
@@ -246,13 +258,28 @@ function KanaQuiz(props) {
             <button id="submitForm"></button>
             </form>
   
-            <div className='mb-3 pb-8'>
-              {pause && <button onClick={handlePause}>Continue</button>}
+            <div className='mb-3'>
+              {pause && <button className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' onClick={handlePause}>Continue</button>}
             </div>        
         </div>
       </div>
     </div>
-      </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white"> <h1> Final Score {correct} out of {kana.length} </h1> </div>}
+      </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
+                <div className='p-8'>
+                  <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
+                  <p className='text-1xl text-center'>{correct} out of {kana.length}</p>
+                  <p className='text-center text-5xl font-bold uppercase m-6 p-4'> 🎉🎉🎉 </p> 
+                  {/* <p className='text-center'> Perfect Score </p> */}
+                  <Confetti
+      width={window.innerWidth}
+      height={window.innerHeight}
+      gravity={0.1}
+    />
+                  <form className='flex justify-center mt-4'> 
+                  <button className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' type="submit"> Return </button>
+                  </form>
+                  </div>
+                </div>}
       </div>
   )
   }
