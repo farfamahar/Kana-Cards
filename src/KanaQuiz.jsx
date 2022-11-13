@@ -203,7 +203,7 @@ function KanaQuiz(props) {
         const formSubmitButton = document.getElementById("submitForm");
         formSubmitButton.click();
         }
-      }, 3000);
+      }, props.difficulty * 1000);
     }
       return () => clearInterval(intervalId);
     },[num,pause])
@@ -217,7 +217,7 @@ function KanaQuiz(props) {
 
         }
         console.log("timer going off")
-      }, 2900);
+      }, (props.difficulty * 1000) - 100);
     }
       return () => clearInterval(intervalId2);
     },[num,pause])
@@ -238,11 +238,11 @@ function KanaQuiz(props) {
   return (
 
  <div className= "min-h-screen centerFlex bg-slate-50" >
-      {num < 46 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
+      {num < kana.length + 1 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
         <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
-      <header className="p-6 mb-8">
-        <h1 className='text-2xl font-bold uppercase' > {props.quiz} Quiz</h1>
+      <header className="p-6 mb-8 ml-16 mr-16">
+        {/* <h1 className='text-2xl font-bold uppercase' > {props.quiz} Quiz</h1> */}
           <p> {num} / {kana.length}</p>
       </header>
     <div> 
@@ -265,7 +265,7 @@ function KanaQuiz(props) {
 
             {!pause && <div className='flex justify-center'> <CountdownCircleTimer
     isPlaying
-    duration={3}
+    duration={props.difficulty}
     colors={['#004777', '#F7B801', '#A30000', '#A30000']}
     colorsTime={[3, 2, 1, 0]}
     size={60}
