@@ -40,7 +40,6 @@ function KanaQuiz(props) {
     setPause(false)
     setInput('');
     setRandomkana();
-    // document.getElementById("kanaInput").focus();
   }
 
   const endQuiz = () => {
@@ -51,8 +50,8 @@ function KanaQuiz(props) {
 
   const handleSubmit = evt => {
     evt.preventDefault()
-    if(input.length < 1 && timerIsActive){
-      
+      if(input.length < 1 && timerIsActive){
+      //do nothing (TODO: Add shake nudge)
     }
 
    else if(input.toLowerCase() === kana[current].romanji){
@@ -79,13 +78,10 @@ function KanaQuiz(props) {
         localStorage.setItem('streak',0)
         setTimerIsActive(true);
       }
-      // setInput('');
-      // setRandomkana()
     }
     
-
+    //Setup Quiz
     useEffect( () => {
-
       if(props.quiz == 'hiragana'){
         setKana([
           { romanji: 'a', kana: 'あ' },
@@ -135,9 +131,37 @@ function KanaQuiz(props) {
           { romanji: 'wo', kana: 'を' },
           { romanji: 'n', kana: 'ん' }
         ])
-
+        //append dakuten form to original array
+        if(props.dakutan == true){
+          setKana(prev => [...prev,
+          { romanji: 'ga', kana: 'が' },
+          { romanji: 'gi', kana: 'ぎ' },
+          { romanji: 'gu', kana: 'ぐ' },
+          { romanji: 'ge', kana: 'げ' },
+          { romanji: 'go', kana: 'ご' },
+          { romanji: 'za', kana: 'ざ' },
+          { romanji: 'ji', kana: 'じ' },
+          { romanji: 'zu', kana: 'ず' },
+          { romanji: 'ze', kana: 'ぜ' },
+          { romanji: 'zo', kana: 'ぞ' },
+          { romanji: 'da', kana: 'だ' },
+          { romanji: 'ji', kana: 'ぢ' },
+          { romanji: 'zu', kana: 'づ' },
+          { romanji: 'de', kana: 'で' },
+          { romanji: 'do', kana: 'ど' },
+          { romanji: 'ba', kana: 'ば' },
+          { romanji: 'bi', kana: 'び' },
+          { romanji: 'bu', kana: 'ぶ' },
+          { romanji: 'be', kana: 'べ' },
+          { romanji: 'bo', kana: 'ぼ' },
+          { romanji: 'pa', kana: 'ぱ' },
+          { romanji: 'pi', kana: 'ぴ' },
+          { romanji: 'pu', kana: 'ぷ' },
+          { romanji: 'pe', kana: 'ぺ' },
+          { romanji: 'po', kana: 'ぽ' },
+          ])
+        }
       }
-      
       else if(props.quiz == 'katakana'){
         setKana([
           { romanji: 'a', kana: 'ア' },
@@ -187,118 +211,152 @@ function KanaQuiz(props) {
           { romanji: 'wo', kana: 'ヲ' },
           { romanji: 'n', kana: 'ン' }
         ])
+         //append dakuten form to original array
+        if(props.dakutan == true){
+          setKana(prev => [...prev,
+          { romanji: 'ga', kana: 'ガ' },
+          { romanji: 'gi', kana: 'ギ' },
+          { romanji: 'gu', kana: 'グ' },
+          { romanji: 'ge', kana: 'ゲ' },
+          { romanji: 'go', kana: 'ゴ' },
+          { romanji: 'za', kana: 'ザ' },
+          { romanji: 'ji', kana: 'ジ' },
+          { romanji: 'zu', kana: 'ズ' },
+          { romanji: 'ze', kana: 'ゼ' },
+          { romanji: 'zo', kana: 'ゾ' },
+          { romanji: 'da', kana: 'ダ' },
+          { romanji: 'ji', kana: 'ヂ' },
+          { romanji: 'zu', kana: 'ヅ' },
+          { romanji: 'de', kana: 'デ' },
+          { romanji: 'do', kana: 'ド' },
+          { romanji: 'ba', kana: 'バ' },
+          { romanji: 'bi', kana: 'ビ' },
+          { romanji: 'bu', kana: 'ブ' },
+          { romanji: 'be', kana: 'ベ' },
+          { romanji: 'bo', kana: 'ボ' },
+          { romanji: 'pa', kana: 'パ' },
+          { romanji: 'pi', kana: 'ピ' },
+          { romanji: 'pu', kana: 'プ' },
+          { romanji: 'pe', kana: 'ペ' },
+          { romanji: 'po', kana: 'ポ' },
+          ])
+        }
       }
+
       setKana(kana => arrayShuffle(kana))
-      // setRandomkana();
       setStreak(parseInt(localStorage.getItem('streak') || 0))
       setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))
     }, [])
 
-
+    //answer timer
     useEffect(() => {
       clearInterval(intervalId)
-      if(num < 46){
-      intervalId = setTimeout(() => {
-        if(!pause){
-        const formSubmitButton = document.getElementById("submitForm");
-        formSubmitButton.click();
+        if(num < 46){
+          intervalId = setTimeout(() => {
+            if(!pause){
+              const formSubmitButton = document.getElementById("submitForm");
+              formSubmitButton.click();
+            }
+          }, (props.difficulty * 1000) );
         }
-      }, 3000);
-    }
       return () => clearInterval(intervalId);
     },[num,pause])
 
+    //answer timer delay to prevent null error on empty answer check with no time
     useEffect(() => {
       clearInterval(intervalId2)
-      if(num < 46){
-      intervalId2 = setTimeout(() => {
-        if(!pause){
-          setTimerIsActive(false);
-
-        }
-        console.log("timer going off")
-      }, 2900);
+        if(num < 46){
+          intervalId2 = setTimeout(() => {
+            if(!pause){
+            setTimerIsActive(false);
+          }
+        }, (props.difficulty * 1000) - 100);
     }
       return () => clearInterval(intervalId2);
     },[num,pause])
 
+    //focus on input on game start
     useEffect(() => {
       setTimeout(() => {
-
         const x = document.getElementById("kanaInput");
         x.focus({
           preventScroll: true
         });
-    
       }, 100);
       return () => clearInterval(intervalId2);
     },[])
 
 
-  return (
-
- <div className= "min-h-screen centerFlex bg-slate-50" >
-      {num < 46 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
-        <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
+return (
+  <div className= "min-h-screen centerFlex bg-slate-50" >
+    {num < kana.length + 1 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
+      <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
-      <header className="p-6 mb-8">
-        <h1 className='text-2xl font-bold uppercase' > {props.quiz} Quiz</h1>
-          <p> {num} / {kana.length}</p>
-      </header>
-    <div> 
-      <div className="text-9xl font-bold mb-8">
-        {kana[current].kana}
-      </div>
-      {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
-
-
-       <form id="myform"  onSubmit={handleSubmit}>
-          {!pause && <input id="kanaInput"
-            autoFocus
-            type="text"
-            value={input}
-            onChange={handleChange}
-            className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
-            text-center text-2xl "/>}
-            <button id="submitForm"></button>
+          <header className="p-6 mb-8 ml-16 mr-16">
+            {/* <h1 className='text-2xl font-bold uppercase' > {props.quiz} Quiz</h1> */}
+            <p> {num} / {kana.length}</p>
+          </header>
+          <div> 
+            <div className="text-9xl font-bold mb-8">
+              {kana[current].kana}
+            </div>
+            {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
+            <form id="myform"  onSubmit={handleSubmit}>
+              {!pause && <input 
+                id="kanaInput"
+                autoFocus
+                type="text"
+                value={input}
+                onChange={handleChange}
+                className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
+              text-center text-2xl "/>}
+              <button id="submitForm"></button>
             </form>
-
-            {!pause && <div className='flex justify-center'> <CountdownCircleTimer
-    isPlaying
-    duration={3}
-    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-    colorsTime={[3, 2, 1, 0]}
-    size={60}
-    key = {key}
-  >
-    {({ remainingTime }) => remainingTime}
-  </CountdownCircleTimer> </div>}
+            {!pause && 
+              <div className='flex justify-center'> 
+                <CountdownCircleTimer
+                  isPlaying
+                  duration={props.difficulty}
+                  colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                  colorsTime={[3, 2, 1, 0]}
+                  size={60}
+                  key = {key}
+                >
+                {({ remainingTime }) => remainingTime}
+                </CountdownCircleTimer> 
+              </div>
+            }
   
             <div className='mb-3'>
-              {pause && <button className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' onClick={handlePause}>Continue</button>}
+              {pause && <button 
+                className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
+                onClick={handlePause}>Continue</button>}
             </div>        
+          </div>
         </div>
       </div>
-    </div>
-      </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
+    </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
                 <div className='p-8'>
                   <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
                   <p className='text-1xl text-center'>{correct} out of {kana.length}</p>
                   <p className='text-center text-5xl font-bold uppercase m-6 p-4'> 🎉🎉🎉 </p> 
                   {/* <p className='text-center'> Perfect Score </p> */}
                   <Confetti
-      width={window.innerWidth}
-      height={window.innerHeight}
-      gravity={0.1}
-    />
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    gravity={0.1}
+                  />
                   <form className='flex justify-center mt-4'> 
-                  <button className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' type="submit"> Return </button>
+                    <button 
+                      className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
+                      type="submit"> Return 
+                    </button>
                   </form>
-                  </div>
-                </div>}
-      </div>
+                </div>
+              </div>}
+    </div>
   )
-  }
+}
 
 
 export default KanaQuiz
