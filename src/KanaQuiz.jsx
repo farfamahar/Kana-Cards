@@ -301,7 +301,7 @@ return (
               {kana[current].kana}
             </div>
             {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
-            <form id="myform"  onSubmit={handleSubmit}>
+            <form id="myform"  onSubmit={handleSubmit} autocomplete="off">
               {!pause && <input 
                 id="kanaInput"
                 autoFocus
