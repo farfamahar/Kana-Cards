@@ -28,29 +28,15 @@ function KanaLearn(props) {
 
   const setNextKana = () => {
     // const randomIndex = Math.floor(Math.random() * kana.length)
+    clearInterval(timeoutId)
     setCurrent(prev => prev+1)
     setNum(num + 1)
-  }
-
-  const handleChange = evt => {
-    setInput(evt.target.value)
-  }
-
-  const handlePause = () => {
-    setNum(num + 1)
-    setError('');
-    setPause(false)
-    setInput('');
   }
 
   const resetQuiz = () => {
     setNum(1)
     setCurrent(0)
   }
-
-
-
- 
     
     //Setup Quiz
     useEffect( () => {
