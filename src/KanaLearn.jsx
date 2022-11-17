@@ -43,39 +43,14 @@ function KanaLearn(props) {
     setInput('');
   }
 
-  const endQuiz = () => {
-    props.stateChanger(true)
-    setShow(false)
+  const resetQuiz = () => {
+    setNum(1)
+    setCurrent(0)
   }
 
 
-  const handleSubmit = evt => {
-    evt.preventDefault()
-      if(input.length < 1 && timerIsActive){
-      //do nothing (TODO: Add shake nudge)
-    }
 
-   else if(input.toLowerCase() === kana[current].romanji){
-      setStreak(streak + 1)
-      setNum(num + 1)
-      setMaxStreak(Math.max(streak+1,maxStreak))
-      setError(false)
-      setInput('');
-      setKey(prev=>prev+1)
-      
-
-      localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
-      localStorage.setItem('streak', streak + 1)
-    }
-      else{
-        setStreak(0)
-        // setNum(num + 1)
-        setPause(true);
-        setError(`The correct answer for 
-        ${kana[current].kana} is ${kana[current].romanji}`)
-        localStorage.setItem('streak',0)
-      }
-    }
+ 
     
     //Setup Quiz
     useEffect( () => {
@@ -260,25 +235,7 @@ return (
           </div>
         </div>
       </div>
-    </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
-                <div className='p-8'>
-                  <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
-                  <p className='text-1xl text-center'> out of {kana.length}</p>
-                  <p className='text-center text-5xl font-bold uppercase m-6 p-4'> 🎉🎉🎉 </p> 
-                  {/* <p className='text-center'> Perfect Score </p> */}
-                  <Confetti
-                    width={window.innerWidth}
-                    height={window.innerHeight}
-                    gravity={0.1}
-                  />
-                  <form className='flex justify-center mt-4'> 
-                    <button 
-                      className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
-                      type="submit"> Return 
-                    </button>
-                  </form>
-                </div>
-              </div>}
+    </div> : resetQuiz()}
     </div>
   )
 }
