@@ -2,10 +2,31 @@ import { useState, useEffect } from 'react'
 import arrayShuffle from 'array-shuffle';
 import Confetti from 'react-confetti'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import './index.css'
+
 
 
 
 function KanaQuiz(props) {
+
+
+    let randomNum=Math.floor(Math.random() * 16);
+    console.log(randomNum)
+    const [fonts, setFonts] = useState(props.randomFont ? ['Yuji Syuku', 'DotGothic16', 'Hachi Maru Pop', 'M PLUS 1 Code', 'Rampart One','Reggae One','RocknRoll One','Shippori Mincho', 'Stick', 'Yuji Mai', 'Yuji Syuku' ,'Zen Kaku Gothic New','Potta One', 'Kaisei Decol', 'Dela Gothic One', 'Shippori Mincho B1', 'Zen Kaku Gothic New'] : '')
+    const [randomFont, setRandomFont] = useState(fonts[randomNum])
+
+    const mystyle = {
+      fontFamily: randomFont
+    };
+  
+  
+  
+
+  function randomizeFont(){
+    let rand=Math.floor(Math.random() * 16);
+    console.log(rand)
+    setRandomFont(fonts[rand])
+}
 
   const [kana,setKana] = useState([{}]);
 
@@ -26,7 +47,6 @@ function KanaQuiz(props) {
   const [error, setError] = useState(false);
 
   const setRandomkana = () => {
-    const randomIndex = Math.floor(Math.random() * kana.length)
     setCurrent(prev => prev+1)
   }
 
@@ -40,6 +60,7 @@ function KanaQuiz(props) {
     setPause(false)
     setInput('');
     setRandomkana();
+    // randomizeFont()
   }
 
   const endQuiz = () => {
@@ -62,6 +83,7 @@ function KanaQuiz(props) {
       setError(false)
       setInput('');
       setRandomkana();
+      // randomizeFont()
       setTimerIsActive(true);
       setKey(prev=>prev+1)
       
@@ -242,7 +264,7 @@ function KanaQuiz(props) {
           ])
         }
       }
-
+      // randomizeFont();
       setKana(kana => arrayShuffle(kana))
       setStreak(parseInt(localStorage.getItem('streak') || 0))
       setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))
@@ -286,6 +308,12 @@ function KanaQuiz(props) {
       return () => clearInterval(intervalId2);
     },[])
 
+    if(props.randomFont){
+    useEffect(() => {
+      randomizeFont()
+    },[num])
+  }
+
 
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" >
@@ -298,7 +326,9 @@ return (
           </header>
           <div> 
             <div className="text-9xl font-bold mb-8">
+              <h1 style={mystyle}>
               {kana[current].kana}
+              </h1>
             </div>
             {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
             <form id="myform"  onSubmit={handleSubmit} autocomplete="off">

@@ -15,6 +15,7 @@ function App() {
   const [show, setShow] = useState(true);
   const [difficulty, setDifficulty] = useState(10);
   const [isDakutan, setIsDakutan] = useState(false);
+  const [isRandomFont, setIsRandomFont] = useState(false);
 
 
   function handleDifficulty(event) {
@@ -23,6 +24,10 @@ function App() {
 
   function handleDakutan(event) {
     setIsDakutan(event.target.checked);
+  }
+
+  function handleRandomFont(event) {
+    setIsRandomFont(event.target.checked);
   }
 
 
@@ -100,13 +105,25 @@ function App() {
           />
           <label for="default-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Include dakuten and handakuon</label>
         </div>
+
+        <div class="flex items-center mb-4 mt-4">
+          <input 
+            id="default-checkbox" 
+            type="checkbox" 
+            onChange={handleRandomFont} 
+            value="" 
+            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label for="default-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Randomize font</label>
+        </div>
+
         <div className='mb-5 '>
           <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded" onClick={() => handleQuizChoice('hiragana')}> Hiragana</button>
           <button className="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4" onClick={() => handleQuizChoice('katakana')}> Katakana</button>
         </div>
       </div>
     </div>}
-      {quiz && <KanaQuiz quiz={quiz} difficulty={difficulty} dakutan={isDakutan} stateChanger={setShow}/>}
+      {quiz && <KanaQuiz quiz={quiz} difficulty={difficulty} dakutan={isDakutan} randomFont={isRandomFont} stateChanger={setShow}/>}
       {learn && <KanaLearn quiz={learn} stateChanger={setShow}/>}
 
       <div className='bg-scroll'> </div>
