@@ -1,5 +1,7 @@
 import React from "react"
 
+/* Renders the top portion of the card in Learn Mode. 
+Contains the current Kana and audio button */
 export default function LearnModeHeader(props){
 
     return (

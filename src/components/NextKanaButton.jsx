@@ -1,5 +1,6 @@
 import React from "react"
 
+//Renders a button that iterates to the next Kana in the array onClick
 export default function NextKanaButton(props){
     return (
         <div className='mb-3'>

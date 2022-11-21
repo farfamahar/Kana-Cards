@@ -1,5 +1,6 @@
 import React from "react"
 
+//Renders the checkbox to determine if user wants to take quiz with randomized fonts
 export default function ChooseRandomFont(props){
 
     return (

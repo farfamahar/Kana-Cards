@@ -1,13 +1,16 @@
 import {useEffect } from 'react'
-import Confetti from 'react-confetti'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import useQuizMode from './hooks/useQuizMode';
+import QuizModeHeader from './components/QuizModeHeader';
+import AnswerInput from './components/AnswerInput';
+import ErrorMessage from './components/ErrorMessage';
+import QuizModeKana from './components/QuizModeKana';
+import EndScreen from './components/EndScreen';
 
 import './index.css'
+import ContinueQuizButton from './components/ContinueQuizButton';
 
 function KanaQuiz(props) {
-
-  
 
   const {
   mystyle,
@@ -30,11 +33,8 @@ function KanaQuiz(props) {
   handleSubmit,
   handleTimer } = useQuizMode(props)
 
-
   let intervalId = 0;
   let intervalId2 = 0;
-
-
 
   //answer timer
   useEffect(() => {
@@ -63,7 +63,7 @@ function KanaQuiz(props) {
       return () => clearInterval(intervalId2);
   },[num,pause])
 
-  //focus on input on game start
+  //focus on input when quiz starts
   useEffect(() => {
     setTimeout(() => {
       const x = document.getElementById("kanaInput");
@@ -83,31 +83,27 @@ function KanaQuiz(props) {
 
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" >
-    {num < kana.length + 1 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
+    {num < kana.length + 1 ? 
+    <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
       <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
-          <header className="p-6 mb-8 ml-16 mr-16">
-            {/* <h1 className='text-2xl font-bold uppercase' > {props.quiz} Quiz</h1> */}
-            <p> {num} / {kana.length}</p>
-          </header>
+          <QuizModeHeader 
+            num={num} 
+            kana={kana}
+          />
           <div> 
-            <div className="text-9xl font-bold mb-8">
-              <h1 style={mystyle}>
-              {kana[current].kana}
-              </h1>
-            </div>
-            {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
-            <form id="myform"  onSubmit={(event) => handleSubmit(event)} autoComplete="off">
-              {!pause && <input 
-                id="kanaInput"
-                autoFocus
-                type="text"
-                value={input}
-                onChange={handleChange}
-                className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
-              text-center text-2xl "/>}
-              <button id="submitForm"></button>
-            </form>
+            <QuizModeKana
+              kana={kana}
+              mystyle={mystyle}
+              current={current}
+            />
+            {error && <ErrorMessage error={error}/>  }
+            <AnswerInput
+              pause={pause}
+              input={input}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
             {!pause && 
               <div className='flex justify-center'> 
                 <CountdownCircleTimer
@@ -124,33 +120,13 @@ return (
             }
   
             <div className='mb-3'>
-              {pause && <button 
-                className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
-                onClick={handlePause}>Continue</button>}
+              {pause && <ContinueQuizButton handlePause={handlePause}/>}
             </div>        
           </div>
         </div>
       </div>
-    </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
-                <div className='p-8'>
-                  <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
-                  <p className='text-1xl text-center'>{correct} out of {kana.length}</p>
-                  <p className='text-center text-5xl font-bold uppercase m-6 p-4'> 🎉🎉🎉 </p> 
-                  {/* <p className='text-center'> Perfect Score </p> */}
-                  <Confetti
-                    width={window.innerWidth}
-                    height={window.innerHeight}
-                    gravity={0.1}
-                  />
-                  <form className='flex justify-center mt-4'> 
-                    <button 
-                      className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
-                      type="submit"> Return 
-                    </button>
-                  </form>
-                </div>
-              </div>}
-    </div>
+    </div> : <EndScreen correct={correct} kana={kana}/>}
+  </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import React from "react"
 
+//Renders 3 radio buttons to choose difficulty
 export default function ChooseDifficulty(props) {
 
     return (

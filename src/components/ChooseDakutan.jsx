@@ -1,5 +1,6 @@
 import React from "react"
 
+//Renders checkbox to determine if quiz should contain modified kana
 export default function ChooseDakutan(props){
     
     return (
