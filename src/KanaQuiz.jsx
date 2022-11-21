@@ -1,314 +1,80 @@
-import { useState, useEffect } from 'react'
-import arrayShuffle from 'array-shuffle';
-import Confetti from 'react-confetti'
+import {useEffect } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import useQuizMode from './hooks/useQuizMode';
+import QuizModeHeader from './components/QuizModeHeader';
+import AnswerInput from './components/AnswerInput';
+import ErrorMessage from './components/ErrorMessage';
+import QuizModeKana from './components/QuizModeKana';
+import EndScreen from './components/EndScreen';
+
 import './index.css'
-
-
-
+import ContinueQuizButton from './components/ContinueQuizButton';
 
 function KanaQuiz(props) {
 
-
-    let randomNum=Math.floor(Math.random() * 16);
-    console.log(randomNum)
-    const [fonts, setFonts] = useState(props.randomFont ? ['Yuji Syuku', 'DotGothic16', 'Hachi Maru Pop', 'M PLUS 1 Code', 'Rampart One','Reggae One','RocknRoll One','Shippori Mincho', 'Stick', 'Yuji Mai', 'Yuji Syuku' ,'Zen Kaku Gothic New','Potta One', 'Kaisei Decol', 'Dela Gothic One', 'Shippori Mincho B1', 'Zen Kaku Gothic New'] : '')
-    const [randomFont, setRandomFont] = useState(fonts[randomNum])
-
-    const mystyle = {
-      fontFamily: randomFont
-    };
-  
-  
-  
-
-  function randomizeFont(){
-    let rand=Math.floor(Math.random() * 16);
-    console.log(rand)
-    setRandomFont(fonts[rand])
-}
-
-  const [kana,setKana] = useState([{}]);
+  const {
+  mystyle,
+  randomizeFont,
+  kana,
+  input,
+  key,
+  current,
+  num,
+  correct,
+  pause,
+  streak,
+  maxStreak,
+  timerIsActive,
+  error,
+  setRandomkana,
+  handleChange,
+  handlePause,
+  endQuiz,
+  handleSubmit,
+  handleTimer } = useQuizMode(props)
 
   let intervalId = 0;
   let intervalId2 = 0;
 
-  const [input, setInput] = useState('');
-  const [key, setKey] = useState(0);
-  const [current, setCurrent] = useState(0);
-  const [num, setNum] = useState(1);
-  const [correct, setCorrect] = useState(0);
-  const [pause, setPause] = useState(false);
-
-  const [streak, setStreak] = useState(0)
-  const [maxStreak, setMaxStreak] = useState(0);
-  const [timerIsActive, setTimerIsActive] = useState(true);
-
-  const [error, setError] = useState(false);
-
-  const setRandomkana = () => {
-    setCurrent(prev => prev+1)
-  }
-
-  const handleChange = evt => {
-    setInput(evt.target.value)
-  }
-
-  const handlePause = () => {
-    setNum(num + 1)
-    setError('');
-    setPause(false)
-    setInput('');
-    setRandomkana();
-    // randomizeFont()
-  }
-
-  const endQuiz = () => {
-    props.stateChanger(true)
-    setShow(false)
-  }
-
-
-  const handleSubmit = evt => {
-    evt.preventDefault()
-      if(input.length < 1 && timerIsActive){
-      //do nothing (TODO: Add shake nudge)
-    }
-
-   else if(input.toLowerCase() === kana[current].romanji){
-      setStreak(streak + 1)
-      setCorrect(prev=>prev+1)
-      setNum(num + 1)
-      setMaxStreak(Math.max(streak+1,maxStreak))
-      setError(false)
-      setInput('');
-      setRandomkana();
-      // randomizeFont()
-      setTimerIsActive(true);
-      setKey(prev=>prev+1)
-      
-
-      localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
-      localStorage.setItem('streak', streak + 1)
-    }
-      else{
-        setStreak(0)
-        // setNum(num + 1)
-        setPause(true);
-        setError(`The correct answer for 
-        ${kana[current].kana} is ${kana[current].romanji}`)
-        localStorage.setItem('streak',0)
-        setTimerIsActive(true);
+  //answer timer
+  useEffect(() => {
+    clearInterval(intervalId)
+      if(num < 46){
+        intervalId = setTimeout(() => {
+          if(!pause){
+            const formSubmitButton = document.getElementById("submitForm");
+            formSubmitButton.click();
+          }
+        }, (props.difficulty * 1000) );
       }
-    }
-    
-    //Setup Quiz
-    useEffect( () => {
-      if(props.quiz == 'hiragana'){
-        setKana([
-          { romanji: 'a', kana: 'あ' },
-          { romanji: 'i', kana: 'い' },
-          { romanji: 'u', kana: 'う' },
-          { romanji: 'e', kana: 'え' },
-          { romanji: 'o', kana: 'お' },
-          { romanji: 'ka', kana: 'か' },
-          { romanji: 'ki', kana: 'き' },
-          { romanji: 'ku', kana: 'く' },
-          { romanji: 'ke', kana: 'け' },
-          { romanji: 'ko', kana: 'こ' },
-          { romanji: 'sa', kana: 'さ' },
-          { romanji: 'shi', kana: 'し' },
-          { romanji: 'su', kana: 'す' },
-          { romanji: 'se', kana: 'せ' },
-          { romanji: 'so', kana: 'そ' },
-          { romanji: 'ta', kana: 'た' },
-          { romanji: 'chi', kana: 'ち' },
-          { romanji: 'tsu', kana: 'つ' },
-          { romanji: 'te', kana: 'て' },
-          { romanji: 'to', kana: 'と' },
-          { romanji: 'na', kana: 'な' },
-          { romanji: 'ni', kana: 'に' },
-          { romanji: 'nu', kana: 'ぬ' },
-          { romanji: 'ne', kana: 'ね' },
-          { romanji: 'no', kana: 'の' },
-          { romanji: 'ha', kana: 'は' },
-          { romanji: 'hi', kana: 'ひ' },
-          { romanji: 'fu', kana: 'ふ' },
-          { romanji: 'he', kana: 'へ' },
-          { romanji: 'ho', kana: 'ほ' },
-          { romanji: 'ma', kana: 'ま' },
-          { romanji: 'mi', kana: 'み' },
-          { romanji: 'mu', kana: 'む' },
-          { romanji: 'me', kana: 'め' },
-          { romanji: 'mo', kana: 'も' },
-          { romanji: 'ya', kana: 'や' },
-          { romanji: 'yu', kana: 'ゆ' },
-          { romanji: 'yo', kana: 'よ' },
-          { romanji: 'ra', kana: 'ら' },
-          { romanji: 'ri', kana: 'り' },
-          { romanji: 'ru', kana: 'る' },
-          { romanji: 're', kana: 'れ' },
-          { romanji: 'ro', kana: 'ろ' },
-          { romanji: 'wa', kana: 'わ' },
-          { romanji: 'wo', kana: 'を' },
-          { romanji: 'n', kana: 'ん' }
-        ])
-        //append dakuten form to original array
-        if(props.dakutan == true){
-          setKana(prev => [...prev,
-          { romanji: 'ga', kana: 'が' },
-          { romanji: 'gi', kana: 'ぎ' },
-          { romanji: 'gu', kana: 'ぐ' },
-          { romanji: 'ge', kana: 'げ' },
-          { romanji: 'go', kana: 'ご' },
-          { romanji: 'za', kana: 'ざ' },
-          { romanji: 'ji', kana: 'じ' },
-          { romanji: 'zu', kana: 'ず' },
-          { romanji: 'ze', kana: 'ぜ' },
-          { romanji: 'zo', kana: 'ぞ' },
-          { romanji: 'da', kana: 'だ' },
-          { romanji: 'ji', kana: 'ぢ' },
-          { romanji: 'zu', kana: 'づ' },
-          { romanji: 'de', kana: 'で' },
-          { romanji: 'do', kana: 'ど' },
-          { romanji: 'ba', kana: 'ば' },
-          { romanji: 'bi', kana: 'び' },
-          { romanji: 'bu', kana: 'ぶ' },
-          { romanji: 'be', kana: 'べ' },
-          { romanji: 'bo', kana: 'ぼ' },
-          { romanji: 'pa', kana: 'ぱ' },
-          { romanji: 'pi', kana: 'ぴ' },
-          { romanji: 'pu', kana: 'ぷ' },
-          { romanji: 'pe', kana: 'ぺ' },
-          { romanji: 'po', kana: 'ぽ' },
-          ])
-        }
-      }
-      else if(props.quiz == 'katakana'){
-        setKana([
-          { romanji: 'a', kana: 'ア' },
-          { romanji: 'i', kana: 'イ' },
-          { romanji: 'u', kana: 'ウ' },
-          { romanji: 'e', kana: 'エ' },
-          { romanji: 'o', kana: 'オ' },
-          { romanji: 'ka', kana: 'カ' },
-          { romanji: 'ki', kana: 'キ' },
-          { romanji: 'ku', kana: 'ク' },
-          { romanji: 'ke', kana: 'ケ' },
-          { romanji: 'ko', kana: 'コ' },
-          { romanji: 'sa', kana: 'サ' },
-          { romanji: 'shi', kana: 'シ' },
-          { romanji: 'su', kana: 'ス' },
-          { romanji: 'se',kana: 'セ' },
-          { romanji: 'so', kana: 'ソ' },
-          { romanji: 'ta', kana: 'タ' },
-          { romanji: 'chi', kana: 'チ' },
-          { romanji: 'tsu', kana: 'ツ' },
-          { romanji: 'te', kana: 'テ' },
-          { romanji: 'to', kana: 'ト' },
-          { romanji: 'na', kana: 'ナ' },
-          { romanji: 'ni', kana: 'ニ' },
-          { romanji: 'nu', kana: 'ヌ' },
-          { romanji: 'ne', kana: 'ネ' },
-          { romanji: 'no', kana: 'ノ' },
-          { romanji: 'ha', kana: 'ハ' },
-          { romanji: 'hi', kana: 'ヒ' },
-          { romanji: 'fu', kana: 'フ' },
-          { romanji: 'he', kana: 'ヘ' },
-          { romanji: 'ho', kana: 'ホ' },
-          { romanji: 'ma', kana: 'マ' },
-          { romanji: 'mi', kana: 'ミ' },
-          { romanji: 'mu', kana: 'ム' },
-          { romanji: 'me', kana: 'メ' },
-          { romanji: 'mo', kana: 'モ' },
-          { romanji: 'ya', kana: 'ヤ' },
-          { romanji: 'yu', kana: 'ユ' },
-          { romanji: 'yo', kana: 'ヨ' },
-          { romanji: 'ra', kana: 'ラ' },
-          { romanji: 'ri', kana: 'リ' },
-          { romanji: 'ru', kana: 'ル' },
-          { romanji: 're', kana: 'レ' },
-          { romanji: 'ro', kana: 'ロ' },
-          { romanji: 'wa', kana: 'ワ' },
-          { romanji: 'wo', kana: 'ヲ' },
-          { romanji: 'n', kana: 'ン' }
-        ])
-         //append dakuten form to original array
-        if(props.dakutan == true){
-          setKana(prev => [...prev,
-          { romanji: 'ga', kana: 'ガ' },
-          { romanji: 'gi', kana: 'ギ' },
-          { romanji: 'gu', kana: 'グ' },
-          { romanji: 'ge', kana: 'ゲ' },
-          { romanji: 'go', kana: 'ゴ' },
-          { romanji: 'za', kana: 'ザ' },
-          { romanji: 'ji', kana: 'ジ' },
-          { romanji: 'zu', kana: 'ズ' },
-          { romanji: 'ze', kana: 'ゼ' },
-          { romanji: 'zo', kana: 'ゾ' },
-          { romanji: 'da', kana: 'ダ' },
-          { romanji: 'ji', kana: 'ヂ' },
-          { romanji: 'zu', kana: 'ヅ' },
-          { romanji: 'de', kana: 'デ' },
-          { romanji: 'do', kana: 'ド' },
-          { romanji: 'ba', kana: 'バ' },
-          { romanji: 'bi', kana: 'ビ' },
-          { romanji: 'bu', kana: 'ブ' },
-          { romanji: 'be', kana: 'ベ' },
-          { romanji: 'bo', kana: 'ボ' },
-          { romanji: 'pa', kana: 'パ' },
-          { romanji: 'pi', kana: 'ピ' },
-          { romanji: 'pu', kana: 'プ' },
-          { romanji: 'pe', kana: 'ペ' },
-          { romanji: 'po', kana: 'ポ' },
-          ])
-        }
-      }
-      // randomizeFont();
-      setKana(kana => arrayShuffle(kana))
-      setStreak(parseInt(localStorage.getItem('streak') || 0))
-      setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))
-    }, [])
+    return () => clearInterval(intervalId);
+  },[num,pause])
 
-    //answer timer
-    useEffect(() => {
-      clearInterval(intervalId)
-        if(num < 46){
-          intervalId = setTimeout(() => {
-            if(!pause){
-              const formSubmitButton = document.getElementById("submitForm");
-              formSubmitButton.click();
-            }
-          }, (props.difficulty * 1000) );
-        }
-      return () => clearInterval(intervalId);
-    },[num,pause])
-
-    //answer timer delay to prevent null error on empty answer check with no time
-    useEffect(() => {
-      clearInterval(intervalId2)
-        if(num < 46){
-          intervalId2 = setTimeout(() => {
-            if(!pause){
-            setTimerIsActive(false);
+  //answer timer delay to prevent null error on empty answer check with no time
+  useEffect(() => {
+    clearInterval(intervalId2)
+      if(num < 46){
+        intervalId2 = setTimeout(() => {
+          if(!pause){
+            handleTimer(false);
           }
         }, (props.difficulty * 1000) - 100);
-    }
+      }
       return () => clearInterval(intervalId2);
-    },[num,pause])
+  },[num,pause])
 
-    //focus on input on game start
-    useEffect(() => {
-      setTimeout(() => {
-        const x = document.getElementById("kanaInput");
-        x.focus({
-          preventScroll: true
-        });
-      }, 100);
-      return () => clearInterval(intervalId2);
-    },[])
+  //focus on input when quiz starts
+  useEffect(() => {
+    setTimeout(() => {
+      const x = document.getElementById("kanaInput");
+      x.focus({
+        preventScroll: true
+      });
+    }, 100);
+    return () => clearInterval(intervalId2);
+  },[])
 
-    if(props.randomFont){
+  if(props.randomFont){
     useEffect(() => {
       randomizeFont()
     },[num])
@@ -317,31 +83,27 @@ function KanaQuiz(props) {
 
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" >
-    {num < kana.length + 1 ? <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
+    {num < kana.length + 1 ? 
+    <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
       <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
-          <header className="p-6 mb-8 ml-16 mr-16">
-            {/* <h1 className='text-2xl font-bold uppercase' > {props.quiz} Quiz</h1> */}
-            <p> {num} / {kana.length}</p>
-          </header>
+          <QuizModeHeader 
+            num={num} 
+            kana={kana}
+          />
           <div> 
-            <div className="text-9xl font-bold mb-8">
-              <h1 style={mystyle}>
-              {kana[current].kana}
-              </h1>
-            </div>
-            {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
-            <form id="myform"  onSubmit={handleSubmit} autocomplete="off">
-              {!pause && <input 
-                id="kanaInput"
-                autoFocus
-                type="text"
-                value={input}
-                onChange={handleChange}
-                className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
-              text-center text-2xl "/>}
-              <button id="submitForm"></button>
-            </form>
+            <QuizModeKana
+              kana={kana}
+              mystyle={mystyle}
+              current={current}
+            />
+            {error && <ErrorMessage error={error}/>  }
+            <AnswerInput
+              pause={pause}
+              input={input}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
             {!pause && 
               <div className='flex justify-center'> 
                 <CountdownCircleTimer
@@ -358,33 +120,13 @@ return (
             }
   
             <div className='mb-3'>
-              {pause && <button 
-                className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
-                onClick={handlePause}>Continue</button>}
+              {pause && <ContinueQuizButton handlePause={handlePause}/>}
             </div>        
           </div>
         </div>
       </div>
-    </div> : <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
-                <div className='p-8'>
-                  <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
-                  <p className='text-1xl text-center'>{correct} out of {kana.length}</p>
-                  <p className='text-center text-5xl font-bold uppercase m-6 p-4'> 🎉🎉🎉 </p> 
-                  {/* <p className='text-center'> Perfect Score </p> */}
-                  <Confetti
-                    width={window.innerWidth}
-                    height={window.innerHeight}
-                    gravity={0.1}
-                  />
-                  <form className='flex justify-center mt-4'> 
-                    <button 
-                      className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
-                      type="submit"> Return 
-                    </button>
-                  </form>
-                </div>
-              </div>}
-    </div>
+    </div> : <EndScreen correct={correct} kana={kana}/>}
+  </div>
   )
 }
 
