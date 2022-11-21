@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import Confetti from 'react-confetti'
 import {hiragana} from "./data/hiragana"
-import {hiraganaModified} from "./data/hiragana-modified"
 import {katakana} from "./data/katakana"
-import {katakanaModified} from "./data/katakana-modified"
 import LearnModeHeader from './components/LearnModeHeader'
 import KanaMnemonic from './components/KanaMnemonic'
+import NextKanaButton from './components/NextKanaButton'
 import useLearnMode from './hooks/useLearnMode'
+import PlaySoundButton from './components/PlaySoundButton'
 
 
 
@@ -62,21 +61,20 @@ return (
             kana={kana}
             current={current}
           />
-          <div className=''>
-            <button className='mt-3 scale-150' onClick={playSound}>{volumeIcon}</button>
+          <div>
+            <PlaySoundButton
+              playSound={playSound}
+              volumeIcon={volumeIcon}
+            />
           </div>
-          <img src={kana[current.image]}/>
           <div> 
             <KanaMnemonic 
               kana={kana} 
               current={current}
             />  
-            <div className='mb-3'>
-              <button 
-                className='transition ease-in-out delay-50 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 
-                onClick={setNextKana}>Next
-              </button>
-            </div>        
+            <NextKanaButton
+              setNextKana={setNextKana}
+            />  
           </div>
         </div>
       </div>
