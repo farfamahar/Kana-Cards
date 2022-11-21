@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react'
 import arrayShuffle from 'array-shuffle';
 import Confetti from 'react-confetti'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import {hiragana} from "./data/hiragana"
+import {hiraganaModified} from "./data/hiragana-modified"
+import {katakana} from "./data/katakana"
+import {katakanaModified} from "./data/katakana-modified"
+
 import './index.css'
 
 
@@ -105,163 +110,17 @@ function KanaQuiz(props) {
     //Setup Quiz
     useEffect( () => {
       if(props.quiz == 'hiragana'){
-        setKana([
-          { romanji: 'a', kana: 'あ' },
-          { romanji: 'i', kana: 'い' },
-          { romanji: 'u', kana: 'う' },
-          { romanji: 'e', kana: 'え' },
-          { romanji: 'o', kana: 'お' },
-          { romanji: 'ka', kana: 'か' },
-          { romanji: 'ki', kana: 'き' },
-          { romanji: 'ku', kana: 'く' },
-          { romanji: 'ke', kana: 'け' },
-          { romanji: 'ko', kana: 'こ' },
-          { romanji: 'sa', kana: 'さ' },
-          { romanji: 'shi', kana: 'し' },
-          { romanji: 'su', kana: 'す' },
-          { romanji: 'se', kana: 'せ' },
-          { romanji: 'so', kana: 'そ' },
-          { romanji: 'ta', kana: 'た' },
-          { romanji: 'chi', kana: 'ち' },
-          { romanji: 'tsu', kana: 'つ' },
-          { romanji: 'te', kana: 'て' },
-          { romanji: 'to', kana: 'と' },
-          { romanji: 'na', kana: 'な' },
-          { romanji: 'ni', kana: 'に' },
-          { romanji: 'nu', kana: 'ぬ' },
-          { romanji: 'ne', kana: 'ね' },
-          { romanji: 'no', kana: 'の' },
-          { romanji: 'ha', kana: 'は' },
-          { romanji: 'hi', kana: 'ひ' },
-          { romanji: 'fu', kana: 'ふ' },
-          { romanji: 'he', kana: 'へ' },
-          { romanji: 'ho', kana: 'ほ' },
-          { romanji: 'ma', kana: 'ま' },
-          { romanji: 'mi', kana: 'み' },
-          { romanji: 'mu', kana: 'む' },
-          { romanji: 'me', kana: 'め' },
-          { romanji: 'mo', kana: 'も' },
-          { romanji: 'ya', kana: 'や' },
-          { romanji: 'yu', kana: 'ゆ' },
-          { romanji: 'yo', kana: 'よ' },
-          { romanji: 'ra', kana: 'ら' },
-          { romanji: 'ri', kana: 'り' },
-          { romanji: 'ru', kana: 'る' },
-          { romanji: 're', kana: 'れ' },
-          { romanji: 'ro', kana: 'ろ' },
-          { romanji: 'wa', kana: 'わ' },
-          { romanji: 'wo', kana: 'を' },
-          { romanji: 'n', kana: 'ん' }
-        ])
+        setKana(hiragana)
         //append dakuten form to original array
         if(props.dakutan == true){
-          setKana(prev => [...prev,
-          { romanji: 'ga', kana: 'が' },
-          { romanji: 'gi', kana: 'ぎ' },
-          { romanji: 'gu', kana: 'ぐ' },
-          { romanji: 'ge', kana: 'げ' },
-          { romanji: 'go', kana: 'ご' },
-          { romanji: 'za', kana: 'ざ' },
-          { romanji: 'ji', kana: 'じ' },
-          { romanji: 'zu', kana: 'ず' },
-          { romanji: 'ze', kana: 'ぜ' },
-          { romanji: 'zo', kana: 'ぞ' },
-          { romanji: 'da', kana: 'だ' },
-          { romanji: 'ji', kana: 'ぢ' },
-          { romanji: 'zu', kana: 'づ' },
-          { romanji: 'de', kana: 'で' },
-          { romanji: 'do', kana: 'ど' },
-          { romanji: 'ba', kana: 'ば' },
-          { romanji: 'bi', kana: 'び' },
-          { romanji: 'bu', kana: 'ぶ' },
-          { romanji: 'be', kana: 'べ' },
-          { romanji: 'bo', kana: 'ぼ' },
-          { romanji: 'pa', kana: 'ぱ' },
-          { romanji: 'pi', kana: 'ぴ' },
-          { romanji: 'pu', kana: 'ぷ' },
-          { romanji: 'pe', kana: 'ぺ' },
-          { romanji: 'po', kana: 'ぽ' },
-          ])
+          setKana(prev => [...prev,...hiraganaModified])
         }
       }
       else if(props.quiz == 'katakana'){
-        setKana([
-          { romanji: 'a', kana: 'ア' },
-          { romanji: 'i', kana: 'イ' },
-          { romanji: 'u', kana: 'ウ' },
-          { romanji: 'e', kana: 'エ' },
-          { romanji: 'o', kana: 'オ' },
-          { romanji: 'ka', kana: 'カ' },
-          { romanji: 'ki', kana: 'キ' },
-          { romanji: 'ku', kana: 'ク' },
-          { romanji: 'ke', kana: 'ケ' },
-          { romanji: 'ko', kana: 'コ' },
-          { romanji: 'sa', kana: 'サ' },
-          { romanji: 'shi', kana: 'シ' },
-          { romanji: 'su', kana: 'ス' },
-          { romanji: 'se',kana: 'セ' },
-          { romanji: 'so', kana: 'ソ' },
-          { romanji: 'ta', kana: 'タ' },
-          { romanji: 'chi', kana: 'チ' },
-          { romanji: 'tsu', kana: 'ツ' },
-          { romanji: 'te', kana: 'テ' },
-          { romanji: 'to', kana: 'ト' },
-          { romanji: 'na', kana: 'ナ' },
-          { romanji: 'ni', kana: 'ニ' },
-          { romanji: 'nu', kana: 'ヌ' },
-          { romanji: 'ne', kana: 'ネ' },
-          { romanji: 'no', kana: 'ノ' },
-          { romanji: 'ha', kana: 'ハ' },
-          { romanji: 'hi', kana: 'ヒ' },
-          { romanji: 'fu', kana: 'フ' },
-          { romanji: 'he', kana: 'ヘ' },
-          { romanji: 'ho', kana: 'ホ' },
-          { romanji: 'ma', kana: 'マ' },
-          { romanji: 'mi', kana: 'ミ' },
-          { romanji: 'mu', kana: 'ム' },
-          { romanji: 'me', kana: 'メ' },
-          { romanji: 'mo', kana: 'モ' },
-          { romanji: 'ya', kana: 'ヤ' },
-          { romanji: 'yu', kana: 'ユ' },
-          { romanji: 'yo', kana: 'ヨ' },
-          { romanji: 'ra', kana: 'ラ' },
-          { romanji: 'ri', kana: 'リ' },
-          { romanji: 'ru', kana: 'ル' },
-          { romanji: 're', kana: 'レ' },
-          { romanji: 'ro', kana: 'ロ' },
-          { romanji: 'wa', kana: 'ワ' },
-          { romanji: 'wo', kana: 'ヲ' },
-          { romanji: 'n', kana: 'ン' }
-        ])
+        setKana(katakana)
          //append dakuten form to original array
         if(props.dakutan == true){
-          setKana(prev => [...prev,
-          { romanji: 'ga', kana: 'ガ' },
-          { romanji: 'gi', kana: 'ギ' },
-          { romanji: 'gu', kana: 'グ' },
-          { romanji: 'ge', kana: 'ゲ' },
-          { romanji: 'go', kana: 'ゴ' },
-          { romanji: 'za', kana: 'ザ' },
-          { romanji: 'ji', kana: 'ジ' },
-          { romanji: 'zu', kana: 'ズ' },
-          { romanji: 'ze', kana: 'ゼ' },
-          { romanji: 'zo', kana: 'ゾ' },
-          { romanji: 'da', kana: 'ダ' },
-          { romanji: 'ji', kana: 'ヂ' },
-          { romanji: 'zu', kana: 'ヅ' },
-          { romanji: 'de', kana: 'デ' },
-          { romanji: 'do', kana: 'ド' },
-          { romanji: 'ba', kana: 'バ' },
-          { romanji: 'bi', kana: 'ビ' },
-          { romanji: 'bu', kana: 'ブ' },
-          { romanji: 'be', kana: 'ベ' },
-          { romanji: 'bo', kana: 'ボ' },
-          { romanji: 'pa', kana: 'パ' },
-          { romanji: 'pi', kana: 'ピ' },
-          { romanji: 'pu', kana: 'プ' },
-          { romanji: 'pe', kana: 'ペ' },
-          { romanji: 'po', kana: 'ポ' },
-          ])
+          setKana(prev => [...prev, ...katakanaModified])
         }
       }
       // randomizeFont();

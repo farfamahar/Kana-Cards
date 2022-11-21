@@ -1,0 +1,31 @@
+export const katakanaModified =  [
+    { romanji: 'ga', kana: 'ガ' },
+    { romanji: 'gi', kana: 'ギ' },
+    { romanji: 'gu', kana: 'グ' },
+    { romanji: 'ge', kana: 'ゲ' },
+    { romanji: 'go', kana: 'ゴ' },
+    { romanji: 'za', kana: 'ザ' },
+    { romanji: 'ji', kana: 'ジ' },
+    { romanji: 'zu', kana: 'ズ' },
+    { romanji: 'ze', kana: 'ゼ' },
+    { romanji: 'zo', kana: 'ゾ' },
+    { romanji: 'da', kana: 'ダ' },
+    { romanji: 'ji', kana: 'ヂ' },
+    { romanji: 'zu', kana: 'ヅ' },
+    { romanji: 'de', kana: 'デ' },
+    { romanji: 'do', kana: 'ド' },
+    { romanji: 'ba', kana: 'バ' },
+    { romanji: 'bi', kana: 'ビ' },
+    { romanji: 'bu', kana: 'ブ' },
+    { romanji: 'be', kana: 'ベ' },
+    { romanji: 'bo', kana: 'ボ' },
+    { romanji: 'pa', kana: 'パ' },
+    { romanji: 'pi', kana: 'ピ' },
+    { romanji: 'pu', kana: 'プ' },
+    { romanji: 'pe', kana: 'ペ' },
+    { romanji: 'po', kana: 'ポ' },
+  ]
+  
+    export default {
+        katakanaModified,
+  }
