@@ -1,16 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { faVolumeOff } from '@fortawesome/free-solid-svg-icons'
-import {useState} from "react"
+import {hiragana} from "../data/hiragana"
+import {katakana} from "../data/katakana"
+import {useState,useEffect} from "react"
 
-export default function useLearnMode() {
+export default function useLearnMode(props) {
     let timeoutId = 0;
 
     const volumeUpIcon = <FontAwesomeIcon icon={faVolumeUp} />
     const volumeOffIcon = <FontAwesomeIcon icon={faVolumeOff} />
     const [volumeIcon, setVolumeIcon] = useState(volumeUpIcon)
+    
 
-
+    const [kana,setKana] = useState([{}]);
     const [current, setCurrent] = useState(0);
     const [num, setNum] = useState(1);
     
@@ -39,11 +42,32 @@ export default function useLearnMode() {
 
     }
 
+    //Setup Quiz
+    useEffect( () => {
+        if(props.quiz == 'hiragana'){
+          setKana(hiragana)
+        }
+        else if(props.quiz == 'katakana'){
+          setKana(katakana)
+        }
+      }, [])
+
+    //play first sound on render
+    useEffect(() => {
+        if(num < kana.length + 1){
+          setTimeout(() => {
+            playSound()
+  
+        }, 200);
+      }
+      },[])
+
     return {
             volumeUpIcon,
             volumeIcon,
             current,
             num,
+            kana,
             setNextKana,
             resetQuiz,
             playSound

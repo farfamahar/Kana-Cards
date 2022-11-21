@@ -29,6 +29,7 @@ export const hiragana =  [
   { romanji: 'fu', kana: 'ふ', image: './src/assets/hiragana-mnemonics/FU.webp',  audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/fu.mp3'},
   { romanji: 'he', kana: 'へ', image: './src/assets/hiragana-mnemonics/HE.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/he.mp3' },
   { romanji: 'ho', kana: 'ほ', image: './src/assets/hiragana-mnemonics/HO.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/ho.mp3' },
+  { romanji: 'ma', kana: 'ま', image: './src/assets/hiragana-mnemonics/MA.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/ma.mp3' },
   { romanji: 'mi', kana: 'み', image: './src/assets/hiragana-mnemonics/MI.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/mi.mp3' },
   { romanji: 'mu', kana: 'む', image: './src/assets/hiragana-mnemonics/MU.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/mu.mp3' },
   { romanji: 'me', kana: 'め', image: './src/assets/hiragana-mnemonics/ME.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/me.mp3'},

@@ -1,173 +1,80 @@
-import { useState, useEffect } from 'react'
-import arrayShuffle from 'array-shuffle';
+import {useEffect } from 'react'
 import Confetti from 'react-confetti'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import {hiragana} from "./data/hiragana"
-import {hiraganaModified} from "./data/hiragana-modified"
-import {katakana} from "./data/katakana"
-import {katakanaModified} from "./data/katakana-modified"
+import useQuizMode from './hooks/useQuizMode';
 
 import './index.css'
 
-
-
-
 function KanaQuiz(props) {
 
-
-    let randomNum=Math.floor(Math.random() * 16);
-    console.log(randomNum)
-    const [fonts, setFonts] = useState(props.randomFont ? ['Yuji Syuku', 'DotGothic16', 'Hachi Maru Pop', 'M PLUS 1 Code', 'Rampart One','Reggae One','RocknRoll One','Shippori Mincho', 'Stick', 'Yuji Mai', 'Yuji Syuku' ,'Zen Kaku Gothic New','Potta One', 'Kaisei Decol', 'Dela Gothic One', 'Shippori Mincho B1', 'Zen Kaku Gothic New'] : '')
-    const [randomFont, setRandomFont] = useState(fonts[randomNum])
-
-    const mystyle = {
-      fontFamily: randomFont
-    };
-  
-  
   
 
-  function randomizeFont(){
-    let rand=Math.floor(Math.random() * 16);
-    console.log(rand)
-    setRandomFont(fonts[rand])
-}
+  const {
+  mystyle,
+  randomizeFont,
+  kana,
+  input,
+  key,
+  current,
+  num,
+  correct,
+  pause,
+  streak,
+  maxStreak,
+  timerIsActive,
+  error,
+  setRandomkana,
+  handleChange,
+  handlePause,
+  endQuiz,
+  handleSubmit,
+  handleTimer } = useQuizMode(props)
 
-  const [kana,setKana] = useState([{}]);
 
   let intervalId = 0;
   let intervalId2 = 0;
 
-  const [input, setInput] = useState('');
-  const [key, setKey] = useState(0);
-  const [current, setCurrent] = useState(0);
-  const [num, setNum] = useState(1);
-  const [correct, setCorrect] = useState(0);
-  const [pause, setPause] = useState(false);
-
-  const [streak, setStreak] = useState(0)
-  const [maxStreak, setMaxStreak] = useState(0);
-  const [timerIsActive, setTimerIsActive] = useState(true);
-
-  const [error, setError] = useState(false);
-
-  const setRandomkana = () => {
-    setCurrent(prev => prev+1)
-  }
-
-  const handleChange = evt => {
-    setInput(evt.target.value)
-  }
-
-  const handlePause = () => {
-    setNum(num + 1)
-    setError('');
-    setPause(false)
-    setInput('');
-    setRandomkana();
-    // randomizeFont()
-  }
-
-  const endQuiz = () => {
-    props.stateChanger(true)
-    setShow(false)
-  }
 
 
-  const handleSubmit = evt => {
-    evt.preventDefault()
-      if(input.length < 1 && timerIsActive){
-      //do nothing (TODO: Add shake nudge)
-    }
-
-   else if(input.toLowerCase() === kana[current].romanji){
-      setStreak(streak + 1)
-      setCorrect(prev=>prev+1)
-      setNum(num + 1)
-      setMaxStreak(Math.max(streak+1,maxStreak))
-      setError(false)
-      setInput('');
-      setRandomkana();
-      // randomizeFont()
-      setTimerIsActive(true);
-      setKey(prev=>prev+1)
-      
-
-      localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
-      localStorage.setItem('streak', streak + 1)
-    }
-      else{
-        setStreak(0)
-        // setNum(num + 1)
-        setPause(true);
-        setError(`The correct answer for 
-        ${kana[current].kana} is ${kana[current].romanji}`)
-        localStorage.setItem('streak',0)
-        setTimerIsActive(true);
+  //answer timer
+  useEffect(() => {
+    clearInterval(intervalId)
+      if(num < 46){
+        intervalId = setTimeout(() => {
+          if(!pause){
+            const formSubmitButton = document.getElementById("submitForm");
+            formSubmitButton.click();
+          }
+        }, (props.difficulty * 1000) );
       }
-    }
-    
-    //Setup Quiz
-    useEffect( () => {
-      if(props.quiz == 'hiragana'){
-        setKana(hiragana)
-        //append dakuten form to original array
-        if(props.dakutan == true){
-          setKana(prev => [...prev,...hiraganaModified])
-        }
-      }
-      else if(props.quiz == 'katakana'){
-        setKana(katakana)
-         //append dakuten form to original array
-        if(props.dakutan == true){
-          setKana(prev => [...prev, ...katakanaModified])
-        }
-      }
-      // randomizeFont();
-      setKana(kana => arrayShuffle(kana))
-      setStreak(parseInt(localStorage.getItem('streak') || 0))
-      setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))
-    }, [])
+    return () => clearInterval(intervalId);
+  },[num,pause])
 
-    //answer timer
-    useEffect(() => {
-      clearInterval(intervalId)
-        if(num < 46){
-          intervalId = setTimeout(() => {
-            if(!pause){
-              const formSubmitButton = document.getElementById("submitForm");
-              formSubmitButton.click();
-            }
-          }, (props.difficulty * 1000) );
-        }
-      return () => clearInterval(intervalId);
-    },[num,pause])
-
-    //answer timer delay to prevent null error on empty answer check with no time
-    useEffect(() => {
-      clearInterval(intervalId2)
-        if(num < 46){
-          intervalId2 = setTimeout(() => {
-            if(!pause){
-            setTimerIsActive(false);
+  //answer timer delay to prevent null error on empty answer check with no time
+  useEffect(() => {
+    clearInterval(intervalId2)
+      if(num < 46){
+        intervalId2 = setTimeout(() => {
+          if(!pause){
+            handleTimer(false);
           }
         }, (props.difficulty * 1000) - 100);
-    }
+      }
       return () => clearInterval(intervalId2);
-    },[num,pause])
+  },[num,pause])
 
-    //focus on input on game start
-    useEffect(() => {
-      setTimeout(() => {
-        const x = document.getElementById("kanaInput");
-        x.focus({
-          preventScroll: true
-        });
-      }, 100);
-      return () => clearInterval(intervalId2);
-    },[])
+  //focus on input on game start
+  useEffect(() => {
+    setTimeout(() => {
+      const x = document.getElementById("kanaInput");
+      x.focus({
+        preventScroll: true
+      });
+    }, 100);
+    return () => clearInterval(intervalId2);
+  },[])
 
-    if(props.randomFont){
+  if(props.randomFont){
     useEffect(() => {
       randomizeFont()
     },[num])
@@ -190,7 +97,7 @@ return (
               </h1>
             </div>
             {error && <p data-aos="fade-up" className="text-red-600 , text-center "> {error} </p>  }
-            <form id="myform"  onSubmit={handleSubmit} autocomplete="off">
+            <form id="myform"  onSubmit={(event) => handleSubmit(event)} autoComplete="off">
               {!pause && <input 
                 id="kanaInput"
                 autoFocus

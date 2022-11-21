@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import {hiragana} from "./data/hiragana"
-import {katakana} from "./data/katakana"
 import LearnModeHeader from './components/LearnModeHeader'
 import KanaMnemonic from './components/KanaMnemonic'
 import NextKanaButton from './components/NextKanaButton'
@@ -11,37 +9,15 @@ import PlaySoundButton from './components/PlaySoundButton'
 
 function KanaLearn(props) {
 
-  const [kana,setKana] = useState([{}]);
 
   const { volumeIcon,
           current,
           num,
+          kana,
           setNextKana,
           resetQuiz,
-          playSound } = useLearnMode();
+          playSound } = useLearnMode(props);
 
-
-    
-    //Setup Quiz
-    useEffect( () => {
-      if(props.quiz == 'hiragana'){
-        setKana(hiragana)
-      }
-      else if(props.quiz == 'katakana'){
-        setKana(katakana)
-      }
-    }, [])
-
-
-    //play first sound on render
-    useEffect(() => {
-      if(num < kana.length + 1){
-        setTimeout(() => {
-          playSound()
-
-      }, 200);
-    }
-    },[])
 
     //play new sound on next kana
     useEffect(() => {
