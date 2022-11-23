@@ -30,6 +30,7 @@ export default function useQuizMode(props) {
     const [num, setNum] = useState(1);
     const [correct, setCorrect] = useState(0);
     const [pause, setPause] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
 
     const [streak, setStreak] = useState(0)
     const [maxStreak, setMaxStreak] = useState(0);
@@ -37,7 +38,7 @@ export default function useQuizMode(props) {
 
     const [error, setError] = useState(false);
 
-    const setRandomkana = () => {
+    const setNextkana = () => {
         setCurrent(prev => prev+1)
     }
 
@@ -50,7 +51,9 @@ export default function useQuizMode(props) {
     setError('');
     setPause(false)
     setInput('');
-    setRandomkana();
+    setNextkana();
+    setKey(prev=>prev+1)
+
   }
 
   const endQuiz = () => {
@@ -62,6 +65,23 @@ export default function useQuizMode(props) {
     setTimerIsActive(param)
   }
 
+  const handleCorrect = () => {
+    setPause(false);
+    setIsCorrect(false);
+    setCorrect(prev=>prev+1)
+    setNum(num + 1)
+    setMaxStreak(Math.max(streak+1,maxStreak))
+    setError(false)
+    setInput('');
+    setNextkana();
+    setTimerIsActive(true);
+    setKey(prev=>prev+1)
+        
+
+    localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
+    localStorage.setItem('streak', streak + 1)
+  }
+
 
   const handleSubmit = evt => {
     evt.preventDefault()
@@ -70,26 +90,32 @@ export default function useQuizMode(props) {
     }
 
     else if(input.toLowerCase() === kana[current].romanji){
+        setPause(true);
+        setIsCorrect(true);
         setStreak(streak + 1)
-        setCorrect(prev=>prev+1)
-        setNum(num + 1)
-        setMaxStreak(Math.max(streak+1,maxStreak))
-        setError(false)
-        setInput('');
-        setRandomkana();
-        setTimerIsActive(true);
-        setKey(prev=>prev+1)
+        setTimeout(() => {
+            handleCorrect();
+          }, 1000);
+        // setStreak(streak + 1)
+        // setCorrect(prev=>prev+1)
+        // setNum(num + 1)
+        // setMaxStreak(Math.max(streak+1,maxStreak))
+        // setError(false)
+        // setInput('');
+        // setRandomkana();
+        // setTimerIsActive(true);
+        // setKey(prev=>prev+1)
         
 
-        localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
-        localStorage.setItem('streak', streak + 1)
+        // localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
+        // localStorage.setItem('streak', streak + 1)
     }
       else{
         setStreak(0)
         setPause(true);
         setError(`The correct answer for 
         ${kana[current].kana} is ${kana[current].romanji}`)
-        localStorage.setItem('streak',0)
+        // localStorage.setItem('streak',0)
         setTimerIsActive(true);
       }
     }
@@ -111,7 +137,7 @@ export default function useQuizMode(props) {
           }
         }
         setKana(kana => arrayShuffle(kana))
-        setStreak(parseInt(localStorage.getItem('streak') || 0))
+        // setStreak(parseInt(localStorage.getItem('streak') || 0))
         setMaxStreak(parseInt(localStorage.getItem('maxStreak') || 0))
       }, [])
 
@@ -127,16 +153,18 @@ export default function useQuizMode(props) {
         num,
         correct,
         pause,
+        isCorrect,
         streak,
         maxStreak,
         timerIsActive,
         error,
-        setRandomkana,
+        setNextkana,
         handleChange,
         handlePause,
         endQuiz,
         handleSubmit,
-        handleTimer
+        handleTimer,
+        handleCorrect
         };
 
 

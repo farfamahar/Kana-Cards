@@ -22,6 +22,7 @@ function KanaQuiz(props) {
   num,
   correct,
   pause,
+  isCorrect,
   streak,
   maxStreak,
   timerIsActive,
@@ -31,7 +32,8 @@ function KanaQuiz(props) {
   handlePause,
   endQuiz,
   handleSubmit,
-  handleTimer } = useQuizMode(props)
+  handleTimer,
+  handleCorrect } = useQuizMode(props)
 
   let intervalId = 0;
   let intervalId2 = 0;
@@ -84,9 +86,10 @@ function KanaQuiz(props) {
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" >
     {num < kana.length + 1 ? 
-    <div className={ pause ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
+    <div className={ (pause && !isCorrect) ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
       <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">
+          
           <QuizModeHeader 
             num={num} 
             kana={kana}
@@ -96,18 +99,24 @@ return (
               kana={kana}
               mystyle={mystyle}
               current={current}
+              pause={pause}
+              isCorrect={isCorrect}
             />
             {error && <ErrorMessage error={error}/>  }
+            { (pause && isCorrect) &&  <div className='flex justify-center mb-3 '>
+              <p data-aos="fade-up" className="text-green-600 text-lg text-center"> { (streak > 0 && streak%5==0) ? `${streak} in a row!` : "Correct!"} </p>
+                </div>}
             <AnswerInput
               pause={pause}
               input={input}
+              isCorrect={isCorrect}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
             />
-            {!pause && 
+            { (!pause || isCorrect) &&
               <div className='flex justify-center'> 
                 <CountdownCircleTimer
-                  isPlaying
+                  isPlaying={!pause}
                   duration={props.difficulty}
                   colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                   colorsTime={[3, 2, 1, 0]}
@@ -120,7 +129,7 @@ return (
             }
   
             <div className='mb-3'>
-              {pause && <ContinueQuizButton handlePause={handlePause}/>}
+              { (pause && !isCorrect) && <ContinueQuizButton handlePause={handlePause}/>}
             </div>        
           </div>
         </div>

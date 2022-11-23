@@ -26,7 +26,7 @@ function KanaLearn(props) {
       }
     },[num])
 
-
+//TODO: Simplify tailwind css
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" > 
     {num < kana.length + 1 ? 

@@ -69,6 +69,7 @@ function App() {
           handleDifficulty={handleDifficulty} 
           difficulty={difficulty}
         />
+        <p className="text-slate-400 text-xs mt-2"> {difficulty} seconds to answer</p>
 
         {/* <a href="#" class="group relative inline-block text-blue-500 underline hover:text-red-500 duration-300">
             Link with top tooltip

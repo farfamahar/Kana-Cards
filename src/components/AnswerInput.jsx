@@ -12,6 +12,15 @@ export default function AnswerInput(props){
                 onChange={props.handleChange}
                 className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-b-black outline-none
               text-center text-2xl "/>}
+              {/* {props.isCorrect && <input 
+                id="kanaInput"
+                disabled
+                autoFocus
+                type="text"
+                value={props.input}
+                onChange={props.handleChange}
+                className="block w-24 mx-auto pb-2 bg-transparent border-b-2 border-green-500 outline-none
+              text-center text-2xl text-green-500 "/>} */}
               <button id="submitForm"></button>
         </form>
     )
