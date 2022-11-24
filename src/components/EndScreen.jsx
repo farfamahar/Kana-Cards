@@ -10,12 +10,12 @@ export default function EndScreen(props){
                   <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
                   <p className='text-1xl text-center'>{props.correct} out of {props.kana.length}</p>
                   <p className='text-center text-5xl font-bold uppercase m-6 p-4'> 🎉🎉🎉 </p> 
-                  {/* <p className='text-center'> Perfect Score </p> */}
-                  <Confetti
+                  <p className='text-center'> { (props.correct == 46 || props.correct == 71) ? "Perfect Score!" : ""} </p>
+                  {(props.correct == 46 || props.correct == 71) ? <Confetti
                     width={window.innerWidth}
                     height={window.innerHeight}
                     gravity={0.1}
-                  />
+                  /> : ""}
                   <form className='flex justify-center mt-4'> 
                     <button 
                       className='text-center transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4' 

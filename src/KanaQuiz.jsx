@@ -88,7 +88,7 @@ return (
     {num < kana.length + 1 ? 
     <div className={ (pause && !isCorrect) ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
       <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
-        <div className="card-inner ml-4">
+        <div className="card-inner abolute ml-4">
           
           <QuizModeHeader 
             num={num} 
@@ -118,7 +118,7 @@ return (
                 <CountdownCircleTimer
                   isPlaying={!pause}
                   duration={props.difficulty}
-                  colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                  colors={['#3B82F6', '#F7B801', '#A30000', '#A30000']}
                   colorsTime={[3, 2, 1, 0]}
                   size={60}
                   key = {key}

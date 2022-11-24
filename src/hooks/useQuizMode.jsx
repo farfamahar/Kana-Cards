@@ -89,13 +89,13 @@ export default function useQuizMode(props) {
       //do nothing (TODO: Add shake nudge)
     }
 
-    else if(input.toLowerCase() === kana[current].romanji){
+    else if(input.trim().toLowerCase() === kana[current].romanji){
         setPause(true);
         setIsCorrect(true);
         setStreak(streak + 1)
         setTimeout(() => {
             handleCorrect();
-          }, 1000);
+          }, 1200);
         // setStreak(streak + 1)
         // setCorrect(prev=>prev+1)
         // setNum(num + 1)
