@@ -26,7 +26,7 @@ export const katakana =  [
   { romanji: 'no', kana: 'ノ', image: './src/assets/katakana-mnemonics/NO.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/no.mp3' },
   { romanji: 'ha', kana: 'ハ', image: './src/assets/katakana-mnemonics/HA.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/ha.mp3' },
   { romanji: 'hi', kana: 'ヒ', image: './src/assets/katakana-mnemonics/HI.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/hi.mp3' },
-  { romanji: 'fu', kana: 'フ' , image: './src/assets/katakana-mnemonics/FU.webp' , audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/fu.mp3'},
+  { romanji: 'fu/hu', kana: 'フ' , image: './src/assets/katakana-mnemonics/FU.webp' , audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/fu.mp3'},
   { romanji: 'he', kana: 'ヘ', image: './src/assets/katakana-mnemonics/HE.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/he.mp3' },
   { romanji: 'ho', kana: 'ホ', image: './src/assets/katakana-mnemonics/HO.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/ho.mp3' },
   { romanji: 'ma', kana: 'マ', image: './src/assets/katakana-mnemonics/MA.webp', audio: 'https://0.tqn.com/z/g/japanese/library/media/audio/ma.mp3' },

@@ -89,6 +89,15 @@ export default function useQuizMode(props) {
       //do nothing (TODO: Add shake nudge)
     }
 
+    if(kana[current].romanji === "fu/hu" && (input.trim().toLowerCase() === "fu" || input.trim().toLowerCase() === "hu"  )){
+        setPause(true);
+        setIsCorrect(true);
+        setStreak(streak + 1)
+        setTimeout(() => {
+            handleCorrect();
+          }, 1200);
+    }
+
     else if(input.trim().toLowerCase() === kana[current].romanji){
         setPause(true);
         setIsCorrect(true);
@@ -96,16 +105,6 @@ export default function useQuizMode(props) {
         setTimeout(() => {
             handleCorrect();
           }, 1200);
-        // setStreak(streak + 1)
-        // setCorrect(prev=>prev+1)
-        // setNum(num + 1)
-        // setMaxStreak(Math.max(streak+1,maxStreak))
-        // setError(false)
-        // setInput('');
-        // setRandomkana();
-        // setTimerIsActive(true);
-        // setKey(prev=>prev+1)
-        
 
         // localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
         // localStorage.setItem('streak', streak + 1)
