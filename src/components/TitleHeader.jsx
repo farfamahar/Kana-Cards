@@ -5,7 +5,7 @@ import React from "react"
 export default function TitleHeader() {
     return(
     <header className="p-6 mb-4 text-center">
-        <img className='scale-75' src="/src/assets/logo.png"/>
+        <img className='scale-75' src="/logo.png"/>
     </header>
     )
 }
