@@ -14,6 +14,7 @@ export default function useQuizMode(props) {
     const mystyle = {
         fontFamily: randomFont
     };
+
   
     function randomizeFont(){
         let rand=Math.floor(Math.random() * 16);
@@ -22,8 +23,8 @@ export default function useQuizMode(props) {
 
     const [kana,setKana] = useState([{}]);
 
-
-
+    let intervalId3 = 0;
+    
     const [input, setInput] = useState('');
     const [key, setKey] = useState(0);
     const [current, setCurrent] = useState(0);
@@ -47,6 +48,7 @@ export default function useQuizMode(props) {
     }
 
   const handlePause = () => {
+    clearInterval(intervalId3)
     setNum(num + 1)
     setError('');
     setPause(false)
@@ -85,11 +87,12 @@ export default function useQuizMode(props) {
 
   const handleSubmit = evt => {
     evt.preventDefault()
-    if(input.trim().length < 1 && timerIsActive){
+    if(input.length < 1 && timerIsActive){
       //do nothing (TODO: Add shake nudge)
     }
 
-    else if(kana[current].romanji === "fu/hu" && (input.trim().toLowerCase() === "fu" || input.trim().toLowerCase() === "hu"  )){
+    if(kana[current].romanji === "fu/hu" && (input.trim().toLowerCase() === "fu" || input.trim().toLowerCase() === "hu"  )){
+        clearInterval(intervalId3)
         setPause(true);
         setIsCorrect(true);
         setStreak(streak + 1)
@@ -99,6 +102,7 @@ export default function useQuizMode(props) {
     }
 
     else if(input.trim().toLowerCase() === kana[current].romanji){
+        clearInterval(intervalId3)
         setPause(true);
         setIsCorrect(true);
         setStreak(streak + 1)
@@ -110,6 +114,7 @@ export default function useQuizMode(props) {
         // localStorage.setItem('streak', streak + 1)
     }
       else{
+        clearInterval(intervalId3)
         setStreak(0)
         setPause(true);
         setError(`The correct answer for 
@@ -141,6 +146,7 @@ export default function useQuizMode(props) {
       }, [])
 
     return {
+        intervalId3,
         fonts,
         randomFont,
         mystyle,

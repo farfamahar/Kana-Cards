@@ -2,6 +2,8 @@ import React from "react"
 
 //Renders the answer form where the user submits a quiz answer
 export default function AnswerInput(props){
+
+    
     return(
         <form id="myform"  onSubmit={(event) => props.handleSubmit(event)} autoComplete="off">
               {!props.pause && <input 

@@ -12,7 +12,11 @@ import ContinueQuizButton from './components/ContinueQuizButton';
 
 function KanaQuiz(props) {
 
-  const {
+  let intervalId = 0;
+  let intervalId2 = 0;
+
+  let {
+  intervalId3,
   mystyle,
   randomizeFont,
   kana,
@@ -35,26 +39,22 @@ function KanaQuiz(props) {
   handleTimer,
   handleCorrect } = useQuizMode(props)
 
-  let intervalId = 0;
-  let intervalId2 = 0;
-  let intervalId3 = 0;
+
 
   // TODO: FIX BUG WHERE THIS DOESNT RUN ON FIRST QUESTION
   //answer timer
   useEffect(() => {
-    console.log("TEST")
     clearInterval(intervalId)
-      if(num < kana.length){
-        console.log("TEST2")
         intervalId = setTimeout(() => {
           if(!pause){
-            handleTimer(true);
-            console.log("TEST3")
-            const formSubmitButton = document.getElementById("submitForm");
-            formSubmitButton.click();
+            // handleTimer(true);
+            // if(num < kana.length){
+              const formSubmitButton = document.getElementById("submitForm");
+              formSubmitButton.click();
+          // }
           }
         }, (props.difficulty * 1000) );
-      }
+      // }
     return () => clearInterval(intervalId);
   },[num,pause])
 
@@ -89,16 +89,16 @@ function KanaQuiz(props) {
   }
 
   // Run timer on first question
-  useEffect(() => {
-    console.log("HELLO")
-    intervalId3 = setTimeout(() => {
-      if(current == 0){
-      const formSubmitButton = document.getElementById("submitForm");
-            formSubmitButton.click();
-      }
-    }, props.difficulty * 1000);
-    return () => clearInterval(intervalId3);
-  },[])
+  // useEffect(() => {
+  //   intervalId3 = setTimeout(() => {
+  //     if(current == 0){
+  //     const formSubmitButton = document.getElementById("submitForm");
+  //           formSubmitButton.click();
+  //           console.log("HERE")
+  //     }
+  //   }, props.difficulty * 1000);
+  //   return () => clearInterval(intervalId3);
+  // },[])
 
 
 return (
