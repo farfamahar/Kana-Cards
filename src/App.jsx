@@ -83,8 +83,11 @@ function App() {
         <ChooseQuizMode 
           handleQuizChoice={handleQuizChoice}
         />
+              <Credits/>
 
       </div>
+
+
     </div>}
 
       {quiz && <KanaQuiz 
@@ -103,9 +106,7 @@ function App() {
 
       {show && <div className='bg-scroll'> </div>}
 
-      <button onClick={() => setShowCredits(true)}> Press </button>
-      {showCredits && <Credits />}
-      
+
     </div> 
     )
   }

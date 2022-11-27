@@ -8,7 +8,7 @@
     background: url("./assets/kana-chart.png") repeat;
     background-size: contain;
     animation: backgroundScroll 55s linear infinite;
-    transform: rotate(45deg) scale(2);
+    transform: rotate(45deg) scale(2.2);
     transform-origin: right;
   
   }

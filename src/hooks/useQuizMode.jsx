@@ -85,11 +85,11 @@ export default function useQuizMode(props) {
 
   const handleSubmit = evt => {
     evt.preventDefault()
-    if(input.length < 1 && timerIsActive){
+    if(input.trim().length < 1 && timerIsActive){
       //do nothing (TODO: Add shake nudge)
     }
 
-    if(kana[current].romanji === "fu/hu" && (input.trim().toLowerCase() === "fu" || input.trim().toLowerCase() === "hu"  )){
+    else if(kana[current].romanji === "fu/hu" && (input.trim().toLowerCase() === "fu" || input.trim().toLowerCase() === "hu"  )){
         setPause(true);
         setIsCorrect(true);
         setStreak(streak + 1)
