@@ -28,7 +28,7 @@ export default function Credits() {
                 {/*body*/}
                 <div className="relative p-6 flex-auto mr-10">
                   <p className="my-4 text-slate-700 text-md">
-                    Developed by Farfama  <span className='ml-1'> {githubIcon} </span>
+                    <a href="https://github.com/fama-623" target="_blank">Developed by Farfama  <span className='ml-1'> {githubIcon} </span> </a>
                   </p>
                   <p className=" text-slate-600 text-sm">
                    <a href="https://www.tofugu.com/" target="_blank"> Mnemonic cards - Tofugu </a>
@@ -39,6 +39,7 @@ export default function Credits() {
                   <p className=" text-slate-600 text-sm">
                   <a href="https://fonts.google.com/?subset=japanese" target="_blank"> Fonts - Google fonts </a>
                   </p>
+                  <p className='mt-5 text-slate-600 text-xs'> Send suggestions to farfama.hargaaya@gmail.com</p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end  border-t border-solid border-slate-200 rounded-b p-4">

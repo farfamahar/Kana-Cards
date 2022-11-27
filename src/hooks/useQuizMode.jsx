@@ -87,9 +87,10 @@ export default function useQuizMode(props) {
 
   const handleSubmit = evt => {
     evt.preventDefault()
-    if(input.length < 1 && timerIsActive){
-      //do nothing (TODO: Add shake nudge)
-    }
+     //TODO: Make it so that empty input doesn't trigger wrong answer while timer is running
+    // if(input.trim().length < 1 && timerIsActive){
+    
+    // }
 
     if(kana[current].romanji === "fu/hu" && (input.trim().toLowerCase() === "fu" || input.trim().toLowerCase() === "hu"  )){
         clearInterval(intervalId3)
