@@ -9,6 +9,7 @@ import ChooseDakutan from './components/ChooseDakutan';
 import ChooseRandomFont from './components/ChooseRandomFont';
 import ChooseLearnMode from "./components/ChooseLearnMode"
 import ChooseQuizMode from "./components/ChooseQuizMode"
+import Credits from "./components/Credits"
 
 AOS.init();
 
@@ -21,10 +22,10 @@ function App() {
   const [quiz, setQuiz] = useState('');
   const [learn, setLearn] = useState('');
   const [show, setShow] = useState(true);
-  //TODO: Put the bottom into an object
   const [difficulty, setDifficulty] = useState(10);
   const [isDakutan, setIsDakutan] = useState(false);
   const [isRandomFont, setIsRandomFont] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
 
 
   function handleDifficulty(event) {
@@ -101,6 +102,10 @@ function App() {
       }
 
       {show && <div className='bg-scroll'> </div>}
+
+      <button onClick={() => setShowCredits(true)}> Press </button>
+      {showCredits && <Credits />}
+      
     </div> 
     )
   }

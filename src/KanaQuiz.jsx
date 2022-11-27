@@ -37,13 +37,19 @@ function KanaQuiz(props) {
 
   let intervalId = 0;
   let intervalId2 = 0;
+  let intervalId3 = 0;
 
+  // TODO: FIX BUG WHERE THIS DOESNT RUN ON FIRST QUESTION
   //answer timer
   useEffect(() => {
+    console.log("TEST")
     clearInterval(intervalId)
-      if(num < 46){
+      if(num < kana.length){
+        console.log("TEST2")
         intervalId = setTimeout(() => {
           if(!pause){
+            handleTimer(true);
+            console.log("TEST3")
             const formSubmitButton = document.getElementById("submitForm");
             formSubmitButton.click();
           }
@@ -55,7 +61,7 @@ function KanaQuiz(props) {
   //answer timer delay to prevent null error on empty answer check with no time
   useEffect(() => {
     clearInterval(intervalId2)
-      if(num < 46){
+      if(num < kana.length){
         intervalId2 = setTimeout(() => {
           if(!pause){
             handleTimer(false);
@@ -81,6 +87,18 @@ function KanaQuiz(props) {
       randomizeFont()
     },[num])
   }
+
+  // Run timer on first question
+  useEffect(() => {
+    console.log("HELLO")
+    intervalId3 = setTimeout(() => {
+      if(current == 0){
+      const formSubmitButton = document.getElementById("submitForm");
+            formSubmitButton.click();
+      }
+    }, props.difficulty * 1000);
+    return () => clearInterval(intervalId3);
+  },[])
 
 
 return (
@@ -134,7 +152,10 @@ return (
           </div>
         </div>
       </div>
-    </div> : <EndScreen correct={correct} kana={kana}/>}
+    </div> : <EndScreen 
+                correct={correct} 
+                kana={kana}
+              />}
   </div>
   )
 }
