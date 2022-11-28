@@ -19,7 +19,23 @@ export default function useLearnMode(props) {
     
     const setNextKana = () => {
         clearInterval(timeoutId)
+        if(current == 45){
+            setCurrent(0)
+        }
+        else{
         setCurrent(prev => prev+1)
+        }
+        setNum(num + 1)
+    }
+
+    const setPrevKana = () => {
+        clearInterval(timeoutId)
+        if(current == 0){
+            setCurrent(kana.length - 1)
+        }
+        else {
+        setCurrent(prev => prev - 1)
+        }
         setNum(num + 1)
     }
 
@@ -69,6 +85,7 @@ export default function useLearnMode(props) {
             num,
             kana,
             setNextKana,
+            setPrevKana,
             resetQuiz,
             playSound
             };

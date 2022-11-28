@@ -7,7 +7,7 @@ export default function EndScreen(props){
 
 
     return(
-        <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white ¥">
+        <div className="m-10 p-10 max-w-md rounded shadow-lg bg-white mobile-card">
                 <div className='p-8'>
                   <h1 className='text-2xl font-bold uppercase mb-3 text-center '> Final Score </h1>
                   <p className='text-1xl text-center'>{props.correct} out of {props.kana.length}</p>

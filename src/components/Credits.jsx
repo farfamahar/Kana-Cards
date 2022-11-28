@@ -18,8 +18,8 @@ export default function Credits() {
       </button>
       {showModal ? (
         <>
-          <div data-aos="slide-up"
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          <div data-aos="slide-up "
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mobile-card"
           >
             <div className="relative w-auto my-6 mx-auto max-w-4xl">
               {/*content*/}

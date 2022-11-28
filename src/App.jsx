@@ -57,7 +57,7 @@ function App() {
   return (
     <div>
     {show &&
-      <div data-aos="slide-up"  className=" min-h-screen  centerFlex ">
+      <div data-aos="slide-up"  className=" min-h-screen  centerFlex  mobile-card">
         <div className=" text-white max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pr-16 pl-16">
       
        <TitleHeader/>
