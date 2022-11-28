@@ -105,7 +105,7 @@ return (
   <div className= "min-h-screen centerFlex bg-slate-50" >
     {num < kana.length + 1 ? 
     <div className={ (pause && !isCorrect) ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
-      <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
+      <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow mobile-card" >
         <div className="card-inner abolute ml-4">
           
           <QuizModeHeader 
