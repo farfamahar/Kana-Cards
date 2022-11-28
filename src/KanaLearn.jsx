@@ -4,6 +4,7 @@ import KanaMnemonic from './components/KanaMnemonic'
 import NextKanaButton from './components/NextKanaButton'
 import useLearnMode from './hooks/useLearnMode'
 import PlaySoundButton from './components/PlaySoundButton'
+import ReturnHome from './components/ReturnHome'
 
 
 
@@ -58,6 +59,7 @@ return (
         </div>
       </div>
     </div> : resetQuiz()}
+    <ReturnHome/>
   </div>
   )
 }

@@ -6,6 +6,7 @@ import AnswerInput from './components/AnswerInput';
 import ErrorMessage from './components/ErrorMessage';
 import QuizModeKana from './components/QuizModeKana';
 import EndScreen from './components/EndScreen';
+import ReturnHome from './components/ReturnHome';
 
 import './index.css'
 import ContinueQuizButton from './components/ContinueQuizButton';
@@ -152,10 +153,8 @@ return (
           </div>
         </div>
       </div>
-    </div> : <EndScreen 
-                correct={correct} 
-                kana={kana}
-              />}
+    </div> : <EndScreen correct={correct} kana={kana}/>}
+   <ReturnHome/>
   </div>
   )
 }
