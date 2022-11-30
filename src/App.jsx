@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import KanaQuiz from './KanaQuiz';
 import KanaLearn from './KanaLearn';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import TitleHeader from "./components/TitleHeader"
+import useMenu from './hooks/useMenu';
 import ChooseDifficulty from './components/ChooseDifficulty';
 import ChooseDakutan from './components/ChooseDakutan';
 import ChooseRandomFont from './components/ChooseRandomFont';
@@ -16,44 +16,18 @@ AOS.init();
 
 function App() {
 
-  //TODO: Put all business logic into custom hook
-
-  //TODO: Put the top two into one function
-  const [quiz, setQuiz] = useState('');
-  const [learn, setLearn] = useState('');
-  const [show, setShow] = useState(true);
-  const [difficulty, setDifficulty] = useState(10);
-  const [isDakutan, setIsDakutan] = useState(false);
-  const [isRandomFont, setIsRandomFont] = useState(false);
-  const [showCredits, setShowCredits] = useState(false);
-
-
-  function handleDifficulty(event) {
-    setDifficulty(event.target.value);
-  }
-
-  function handleDakutan(event) {
-    setIsDakutan(event.target.checked);
-  }
-
-  function handleRandomFont(event) {
-    setIsRandomFont(event.target.checked);
-  }
-
-
-  function handleQuizChoice(quizType){
-    setShow(false)
-    setQuiz(quizType)
-  }
-
-  function handleLearnChoice(learnType){
-    setShow(false)
-    setLearn(learnType)
-
-  }
+  const { quiz,
+    learn,
+    show,
+    difficulty,
+    isDakutan,
+    isRandomFont,
+    handleDifficulty,
+    handleDakutan,
+    handleRandomFont,
+    handleQuizChoice,
+    handleLearnChoice} = useMenu();
   
-  //TODO: Simplify tailwind css
-  //TODO: Add tooltips to settings (hover to see what each one do)
   return (
     <div>
     {show &&
@@ -95,12 +69,10 @@ function App() {
                   difficulty={difficulty} 
                   dakutan={isDakutan} 
                   randomFont={isRandomFont} 
-                  stateChanger={setShow}
                 />
       }
       {learn && <KanaLearn 
                   quiz={learn} 
-                  stateChanger={setShow}
                 />
       }
 

@@ -40,9 +40,6 @@ function KanaQuiz(props) {
   handleTimer,
   handleCorrect } = useQuizMode(props)
 
-
-
-  // TODO: FIX BUG WHERE THIS DOESNT RUN ON FIRST QUESTION
   //answer timer
   useEffect(() => {
     clearInterval(intervalId)
@@ -88,18 +85,6 @@ function KanaQuiz(props) {
       randomizeFont()
     },[num])
   }
-
-  // Run timer on first question
-  // useEffect(() => {
-  //   intervalId3 = setTimeout(() => {
-  //     if(current == 0){
-  //     const formSubmitButton = document.getElementById("submitForm");
-  //           formSubmitButton.click();
-  //           console.log("HERE")
-  //     }
-  //   }, props.difficulty * 1000);
-  //   return () => clearInterval(intervalId3);
-  // },[])
 
 
 return (
