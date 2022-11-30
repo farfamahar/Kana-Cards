@@ -15,7 +15,7 @@ export default function useLearnMode(props) {
 
     const [kana,setKana] = useState([{}]);
     const [current, setCurrent] = useState(0);
-    const [num, setNum] = useState(1);
+    const [iterator, setNum] = useState(1);
     
     const setNextKana = () => {
         clearInterval(timeoutId)
@@ -25,7 +25,7 @@ export default function useLearnMode(props) {
         else{
         setCurrent(prev => prev+1)
         }
-        setNum(num + 1)
+        setNum(iterator + 1)
     }
 
     const setPrevKana = () => {
@@ -36,7 +36,7 @@ export default function useLearnMode(props) {
         else {
         setCurrent(prev => prev - 1)
         }
-        setNum(num + 1)
+        setNum(iterator + 1)
     }
 
     const resetQuiz = () => {
@@ -70,7 +70,7 @@ export default function useLearnMode(props) {
 
     //play first sound on render
     useEffect(() => {
-        if(num < kana.length + 1){
+        if(iterator < kana.length + 1){
           setTimeout(() => {
             playSound()
   
@@ -82,7 +82,7 @@ export default function useLearnMode(props) {
             volumeUpIcon,
             volumeIcon,
             current,
-            num,
+            iterator,
             kana,
             setNextKana,
             setPrevKana,

@@ -24,7 +24,7 @@ function KanaQuiz(props) {
   input,
   key,
   current,
-  num,
+  iterator,
   correct,
   pause,
   isCorrect,
@@ -46,7 +46,7 @@ function KanaQuiz(props) {
         intervalId = setTimeout(() => {
           if(!pause){
             // handleTimer(true);
-            // if(num < kana.length){
+            // if(iterator < kana.length){
               const formSubmitButton = document.getElementById("submitForm");
               formSubmitButton.click();
           // }
@@ -54,12 +54,12 @@ function KanaQuiz(props) {
         }, (props.difficulty * 1000) );
       // }
     return () => clearInterval(intervalId);
-  },[num,pause])
+  },[iterator,pause])
 
   //answer timer delay to prevent null error on empty answer check with no time
   useEffect(() => {
     clearInterval(intervalId2)
-      if(num < kana.length){
+      if(iterator < kana.length){
         intervalId2 = setTimeout(() => {
           if(!pause){
             handleTimer(false);
@@ -67,7 +67,7 @@ function KanaQuiz(props) {
         }, (props.difficulty * 1000) - 100);
       }
       return () => clearInterval(intervalId2);
-  },[num,pause])
+  },[iterator,pause])
 
   //focus on input when quiz starts
   useEffect(() => {
@@ -83,19 +83,19 @@ function KanaQuiz(props) {
   if(props.randomFont){
     useEffect(() => {
       randomizeFont()
-    },[num])
+    },[iterator])
   }
 
 
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" >
-    {num < kana.length + 1 ? 
+    {iterator < kana.length + 1 ? 
     <div className={ (pause && !isCorrect) ? 'flex justify-center  bg-slate-50 text-black text-center shake-slow shake-horizontal ' : "flex justify-center  bg-slate-50 text-black text-center shake-slow"}>
       <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow mobile-card" >
         <div className="card-inner abolute ml-4">
           
           <QuizModeHeader 
-            num={num} 
+            iterator={iterator} 
             kana={kana}
           />
           <div> 

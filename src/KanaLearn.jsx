@@ -13,7 +13,7 @@ function KanaLearn(props) {
 
   const { volumeIcon,
           current,
-          num,
+          iterator,
           kana,
           setNextKana,
           setPrevKana,
@@ -23,14 +23,14 @@ function KanaLearn(props) {
 
     //play new sound on next kana
     useEffect(() => {
-      if(num < kana.length + 1){
+      if(iterator < kana.length + 1){
         playSound()
       }
-    },[num])
+    },[iterator])
 
 return (
   <div className= "min-h-screen centerFlex bg-slate-50" > 
-    {num < kana.length + 1 ? 
+    {iterator < kana.length + 1 ? 
     <div className='flex justify-center  bg-slate-50 text-black text-center scale-75'>
       <div data-aos="slide-up" className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow" >
         <div className="card-inner ml-4">

@@ -28,7 +28,7 @@ export default function useQuizMode(props) {
     const [input, setInput] = useState('');
     const [key, setKey] = useState(0);
     const [current, setCurrent] = useState(0);
-    const [num, setNum] = useState(1);
+    const [iterator, setNum] = useState(1);
     const [correct, setCorrect] = useState(0);
     const [pause, setPause] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
@@ -49,7 +49,7 @@ export default function useQuizMode(props) {
 
   const handlePause = () => {
     clearInterval(intervalId3)
-    setNum(num + 1)
+    setNum(iterator + 1)
     setError('');
     setPause(false)
     setInput('');
@@ -71,7 +71,7 @@ export default function useQuizMode(props) {
     setPause(false);
     setIsCorrect(false);
     setCorrect(prev=>prev+1)
-    setNum(num + 1)
+    setNum(iterator + 1)
     setMaxStreak(Math.max(streak+1,maxStreak))
     setError(false)
     setInput('');
@@ -156,7 +156,7 @@ export default function useQuizMode(props) {
         input,
         key,
         current,
-        num,
+        iterator,
         correct,
         pause,
         isCorrect,
