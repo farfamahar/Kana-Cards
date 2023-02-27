@@ -11,23 +11,30 @@ import ChooseRandomFont from "./components/ChooseRandomFont";
 import ChooseLearnMode from "./components/ChooseLearnMode";
 import ChooseQuizMode from "./components/ChooseQuizMode";
 import Credits from "./components/Credits";
+import { Toaster } from 'react-hot-toast';
+
 
 AOS.init();
 
 function App() {
   const {
-    quiz,
+    startQuiz,
     learn,
     show,
     difficulty,
     isDakutan,
+    isHiragana,
+    isKatakana,
     isRandomFont,
     handleDifficulty,
     handleDakutan,
+    handleHiragana,
+    handleKatakana,
     handleRandomFont,
-    handleQuizChoice,
+    handleQuizStart,
     handleLearnChoice,
   } = useMenu();
+
 
   return (
     <div>
@@ -36,7 +43,7 @@ function App() {
           data-aos="slide-up"
           className=" min-h-screen  centerFlex  mobile-card"
         >
-          <div className=" text-white max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pr-16 pl-16">
+          <div className=" text-white max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pr-16 pl-16 pb-8">
             <TitleHeader />
             <ChooseLearnMode handleLearnChoice={handleLearnChoice} />
 
@@ -50,26 +57,37 @@ function App() {
               handleDifficulty={handleDifficulty}
               difficulty={difficulty}
             />
-            <p className="text-slate-400 text-xs mt-2">
-              {" "}
-              {difficulty} seconds to answer
-            </p>
+            <ChooseQuizMode
+              handleHiragana={handleHiragana}
+              handleKatakana={handleKatakana}
+            />
 
             <ChooseDakutan handleDakutan={handleDakutan} />
 
             <ChooseRandomFont handleRandomFont={handleRandomFont} />
 
-            <ChooseQuizMode handleQuizChoice={handleQuizChoice} />
+            <button
+              className="mt-4 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded"
+              onClick={() => handleQuizStart()}
+            >
+              {" "}
+              Start Quiz
+            </button>
+
             <Credits />
+            <Toaster/>
+
           </div>
         </div>
       )}
 
-      {quiz && (
+      {startQuiz && (
         <KanaQuiz
-          quiz={quiz}
+          quizType={startQuiz}
           difficulty={difficulty}
           dakutan={isDakutan}
+          hiragana={isHiragana}
+          katakana={isKatakana}
           randomFont={isRandomFont}
         />
       )}

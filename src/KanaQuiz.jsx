@@ -13,7 +13,7 @@ import Streak from "./components/Streak";
 import "./index.css";
 import ContinueQuizButton from "./components/ContinueQuizButton";
 
-function KanaQuiz({ quiz, difficulty, dakutan, randomFont }) {
+function KanaQuiz({ hiragana, katakana, difficulty, dakutan, randomFont }) {
   let intervalId = 0;
   let intervalId2 = 0;
 
@@ -34,7 +34,7 @@ function KanaQuiz({ quiz, difficulty, dakutan, randomFont }) {
     handlePause,
     handleSubmit,
     handleTimer,
-  } = useQuizMode({ quiz, difficulty, dakutan, randomFont });
+  } = useQuizMode({ hiragana, katakana, difficulty, dakutan, randomFont });
 
   //answer timer
   useEffect(() => {
@@ -148,7 +148,8 @@ function KanaQuiz({ quiz, difficulty, dakutan, randomFont }) {
 }
 
 KanaQuiz.propTypes = {
-  quiz: PropTypes.string,
+  hiragana: PropTypes.bool,
+  katakana: PropTypes.bool,
   difficulty: PropTypes.number,
   dakutan: PropTypes.bool,
   randomFont: PropTypes.bool,

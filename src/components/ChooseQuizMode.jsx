@@ -3,27 +3,58 @@ import PropTypes from "prop-types";
 
 
 //Renders two buttons choose which type of quiz to take (Hiragana or Katakana)
-export default function ChooseQuizMode({handleQuizChoice}) {
+export default function ChooseQuizMode({handleHiragana, handleKatakana}) {
   return (
-    <div className="mb-5 w-max">
-      <button
-        className="transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded"
-        onClick={() => handleQuizChoice("hiragana")}
+    <div className="flex items-center mb-4 mt-4">
+      <input
+        id="default-checkbox"
+        type="checkbox"
+        onChange={handleHiragana}
+        value=""
+        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
+      />
+      <label
+        htmlFor="default-checkbox"
+        className="ml-2 text-sm font-medium text-gray-900 cursor-pointer"
       >
-        {" "}
         Hiragana
-      </button>
-      <button
-        className="transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded m-4"
-        onClick={() => handleQuizChoice("katakana")}
+      </label>
+
+      <input
+        id="checkbox"
+        type="checkbox"
+        onChange={handleKatakana}
+        value=""
+        className="w-4 h-4 ml-8 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
+      />
+      
+      <label
+        htmlFor="checkbox"
+        className="ml-2 text-sm font-medium text-gray-900 cursor-pointer"
       >
-        {" "}
         Katakana
-      </button>
+      </label>
+
+      {/* <input
+        id="checkbox"
+        type="checkbox"
+        onChange={handleKatakana}
+        value=""
+        className="w-4 h-4 ml-8 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
+      />
+      
+      <label
+        htmlFor="checkbox"
+        className="ml-2 text-sm font-medium text-gray-900 cursor-pointer"
+      >
+        Custom
+      </label> */}
     </div>
   );
 }
 
 ChooseQuizMode.propTypes = {
-  handleQuizChoice: PropTypes.func.isRequired,
+  handleHiragana: PropTypes.func.isRequired,
+  handleKatakana: PropTypes.func.isRequired,
+
 };

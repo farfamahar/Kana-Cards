@@ -137,19 +137,36 @@ export default function useQuizMode(props) {
 
   //Setup Quiz
   useEffect(() => {
-    if (props.quiz == "hiragana") {
+    if (props.hiragana && !props.katakana) {
       setKana(hiragana);
+      // setKana(prev=> ...prev,katakana)
       //append dakuten form to original array
       if (props.dakutan == true) {
         setKana((prev) => [...prev, ...hiraganaModified]);
       }
-    } else if (props.quiz == "katakana") {
+    }
+    if (props.katakana && !props.hiragana) {
       setKana(katakana);
       //append dakuten form to original array
       if (props.dakutan == true) {
         setKana((prev) => [...prev, ...katakanaModified]);
       }
     }
+
+    if (props.katakana && props.hiragana) {
+      setKana([...katakana,...hiragana]);
+      //append dakuten form to original array
+      if (props.dakutan == true) {
+        setKana((prev) => [...prev, ...katakanaModified,...hiraganaModified]);
+      }
+    }
+
+    // else if(props.hiragana && props.katakana){
+    //   setKana([...hiragana,...katakana]);
+    //   if (props.dakutan == true) {
+    //     setKana((prev) => [...prev, ...katakanaModified, ...hiraganaModified]);
+    //   }
+    // }
     setKana((kana) => arrayShuffle(kana));
     // setStreak(parseInt(localStorage.getItem('streak') || 0))
     setMaxStreak(parseInt(localStorage.getItem("maxStreak") || 0));
