@@ -96,7 +96,7 @@ function KanaQuiz({ quiz, difficulty, dakutan, randomFont }) {
             className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow mobile-card"
           >
             <div className="card-inner abolute ml-4">
-              <QuizModeHeader iterator={iterator} kana={kana} />
+              <QuizModeHeader iterator={iterator} kanaLength={kana.length} />
               <div>
                 <QuizModeKana
                   kana={kana}

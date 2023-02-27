@@ -43,12 +43,6 @@ export default function EndScreen({ correct, kanaLength }) {
 }
 
 EndScreen.propTypes = {
-  kana: PropTypes.shape({
-    romanji: PropTypes.string,
-    kana: PropTypes.string,
-    iamge: PropTypes.string,
-    audio: PropTypes.string,
-  }),
   correct: PropTypes.number.isRequired,
   kanaLength: PropTypes.number,
 };
