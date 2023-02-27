@@ -151,7 +151,7 @@ function KanaQuiz({ quiz, difficulty, dakutan, randomFont }) {
           </div>
         </div>
       ) : (
-        <EndScreen correct={correct} kana={kana} />
+        <EndScreen correct={correct} kanaLength={kana.length} />
       )}
       <ReturnHome />
     </div>
