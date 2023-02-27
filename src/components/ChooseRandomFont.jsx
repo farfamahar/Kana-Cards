@@ -6,15 +6,15 @@ export default function ChooseRandomFont({ handleRandomFont }) {
   return (
     <div className="flex items-center mb-4 mt-4">
       <input
-        id="default-checkbox"
+        id="font-checkbox"
         type="checkbox"
         onChange={handleRandomFont}
         value=""
-        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500"
+        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
       />
       <label
-        htmlFor="default-checkbox"
-        className="ml-2 text-sm font-medium text-gray-900"
+        htmlFor="font-checkbox"
+        className="ml-2 text-sm font-medium text-gray-900 cursor-pointer"
       >
         Randomize font
       </label>
