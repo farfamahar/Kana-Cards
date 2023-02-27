@@ -8,6 +8,7 @@ import ErrorMessage from "./components/ErrorMessage";
 import QuizModeKana from "./components/QuizModeKana";
 import EndScreen from "./components/EndScreen";
 import ReturnHome from "./components/ReturnHome";
+import Streak from "./components/Streak";
 
 import "./index.css";
 import ContinueQuizButton from "./components/ContinueQuizButton";
@@ -106,19 +107,7 @@ function KanaQuiz({ quiz, difficulty, dakutan, randomFont }) {
                   isCorrect={isCorrect}
                 />
                 {error && <ErrorMessage error={error} />}
-                {pause && isCorrect && (
-                  <div className="flex justify-center mb-3 ">
-                    <p
-                      data-aos="fade-up"
-                      className="text-green-600 text-lg text-center"
-                    >
-                      {" "}
-                      {streak > 0 && streak % 5 == 0
-                        ? `${streak} in a row!`
-                        : "Correct!"}{" "}
-                    </p>
-                  </div>
-                )}
+                {pause && isCorrect && <Streak streak={streak} />}
                 <AnswerInput
                   pause={pause}
                   input={input}

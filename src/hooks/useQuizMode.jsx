@@ -82,6 +82,17 @@ export default function useQuizMode(props) {
     setTimerIsActive(param);
   };
 
+  const correctInput = () => {
+    if (
+      (kana[current].romanji === "fu/hu" &&
+        (input.trim().toLowerCase() === "fu" ||
+          input.trim().toLowerCase() === "hu")) ||
+      input.trim().toLowerCase() === kana[current].romanji
+    ) {
+      return true;
+    }
+  };
+
   const handleCorrect = () => {
     setPause(false);
     setIsCorrect(false);
@@ -105,11 +116,7 @@ export default function useQuizMode(props) {
 
     // }
 
-    if (
-      kana[current].romanji === "fu/hu" &&
-      (input.trim().toLowerCase() === "fu" ||
-        input.trim().toLowerCase() === "hu")
-    ) {
+    if (correctInput()) {
       clearInterval(intervalId3);
       setPause(true);
       setIsCorrect(true);
@@ -117,17 +124,6 @@ export default function useQuizMode(props) {
       setTimeout(() => {
         handleCorrect();
       }, 1200);
-    } else if (input.trim().toLowerCase() === kana[current].romanji) {
-      clearInterval(intervalId3);
-      setPause(true);
-      setIsCorrect(true);
-      setStreak(streak + 1);
-      setTimeout(() => {
-        handleCorrect();
-      }, 1200);
-
-      // localStorage.setItem('maxStreak', Math.max(streak,maxStreak))
-      // localStorage.setItem('streak', streak + 1)
     } else {
       clearInterval(intervalId3);
       setStreak(0);
