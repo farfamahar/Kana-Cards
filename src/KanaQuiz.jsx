@@ -66,15 +66,15 @@ function KanaQuiz({ quizType, custom, difficulty, dakutan, randomFont, customCha
   }, [iterator, pause]);
 
   //focus on input when quiz starts
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const x = document.getElementById("kanaInput");
-  //     x.focus({
-  //       preventScroll: true,
-  //     });
-  //   }, 100);
-  //   return () => clearInterval(intervalId2);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      const x = document.getElementById("kanaInput");
+      x.focus({
+        preventScroll: true,
+      });
+    }, 100);
+    return () => clearInterval(intervalId2);
+  }, []);
 
   if (randomFont) {
     useEffect(() => {
@@ -83,7 +83,7 @@ function KanaQuiz({ quizType, custom, difficulty, dakutan, randomFont, customCha
   }
 
   return (
-    <div className="sm:min-h-screen fixed centerFlex bg-slate-50 quiz-card">
+    <div className="sm:min-h-screen centerFlex bg-slate-50 mobile-card">
       {iterator < kana.length + 1 ? (
         <div
           className={
