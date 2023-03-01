@@ -94,7 +94,7 @@ function KanaQuiz({ quizType, custom, difficulty, dakutan, randomFont, customCha
         >
           <div
             data-aos="slide-up"
-            className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow mobile-card"
+            className=" m-10 p-10 max-w-md rounded shadow-lg bg-white card card-top-right soft-shadow fixed mobile-card"
           >
             <div className="card-inner abolute ml-4">
               <QuizModeHeader iterator={iterator} kanaLength={kana.length} />
