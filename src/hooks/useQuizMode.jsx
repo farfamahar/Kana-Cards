@@ -7,6 +7,9 @@ import { katakana } from "../data/katakana";
 import { katakanaModified } from "../data/katakana-modified";
 
 export default function useQuizMode(props) {
+  console.log(props.difficulty + "TEST DIFF")
+  console.log(props.customCharacterArray + "TEST")
+
   let randomNum = Math.floor(Math.random() * 16);
   const [fonts, setFonts] = useState(
     props.randomFont
@@ -161,12 +164,10 @@ export default function useQuizMode(props) {
       }
     }
 
-    // else if(props.hiragana && props.katakana){
-    //   setKana([...hiragana,...katakana]);
-    //   if (props.dakutan == true) {
-    //     setKana((prev) => [...prev, ...katakanaModified, ...hiraganaModified]);
-    //   }
-    // }
+    if(props.custom){
+      setKana(props.customCharacterArray)
+    }
+
     setKana((kana) => arrayShuffle(kana));
     // setStreak(parseInt(localStorage.getItem('streak') || 0))
     setMaxStreak(parseInt(localStorage.getItem("maxStreak") || 0));
@@ -177,7 +178,6 @@ export default function useQuizMode(props) {
     fonts,
     randomFont,
     mystyle,
-    randomizeFont,
     kana,
     input,
     key,
@@ -196,5 +196,6 @@ export default function useQuizMode(props) {
     handleSubmit,
     handleTimer,
     handleCorrect,
+    randomizeFont,
   };
 }

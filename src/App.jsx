@@ -11,6 +11,7 @@ import ChooseRandomFont from "./components/ChooseRandomFont";
 import ChooseLearnMode from "./components/ChooseLearnMode";
 import ChooseQuizMode from "./components/ChooseQuizMode";
 import Credits from "./components/Credits";
+import ChooseCharacters from "./components/ChooseCharacters";
 import { Toaster } from 'react-hot-toast';
 
 
@@ -20,25 +21,33 @@ function App() {
   const {
     startQuiz,
     learn,
-    show,
+    showMenu,
     difficulty,
     isDakutan,
     isHiragana,
     isKatakana,
+    isCustom,
     isRandomFont,
+    customCharacterArray,
     handleDifficulty,
     handleDakutan,
     handleHiragana,
     handleKatakana,
+    handleCustom,
     handleRandomFont,
     handleQuizStart,
     handleLearnChoice,
+    closeCharacterModal
+
   } = useMenu();
+
+  console.log(customCharacterArray)
+  console.log(difficulty);
 
 
   return (
     <div>
-      {show && (
+      {showMenu && (
         <div
           data-aos="slide-up"
           className=" min-h-screen  centerFlex  mobile-card"
@@ -60,6 +69,8 @@ function App() {
             <ChooseQuizMode
               handleHiragana={handleHiragana}
               handleKatakana={handleKatakana}
+              handleCustom={handleCustom}
+              // openChooseQuizModal={openChooseQuizModal}
             />
 
             <ChooseDakutan handleDakutan={handleDakutan} />
@@ -88,12 +99,16 @@ function App() {
           dakutan={isDakutan}
           hiragana={isHiragana}
           katakana={isKatakana}
+          custom={true} //TEMPORARY
+          customCharacterArray={customCharacterArray}
           randomFont={isRandomFont}
         />
       )}
       {learn && <KanaLearn quiz={learn} />}
+      {isCustom && <ChooseCharacters closeCharacterModal={closeCharacterModal}/>}
 
-      {show && <div className="bg-scroll"> </div>}
+
+      {showMenu && <div className="bg-scroll"> </div>}
     </div>
   );
 }

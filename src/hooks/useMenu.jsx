@@ -6,13 +6,16 @@ export default function useMenu() {
   //TODO: Put the top two into one function
   const [startQuiz, setStartQuiz] = useState(false);
   const [learn, setLearn] = useState("");
-  const [show, setShow] = useState(true);
+  const [showMenu, setShowMenu] = useState(true);
   const [difficulty, setDifficulty] = useState(10);
   const [isDakutan, setIsDakutan] = useState(false);
   const [isHiragana, setIsHiragana] = useState(false);
   const [isKatakana, setIsKatakana] = useState(false);
+  const [isCustom, setIsCustom] = useState(false);
+  const [customCharacterArray, setCustomCharacterArray] = useState([]);
   const [isRandomFont, setIsRandomFont] = useState(false);
   const [showCredits, setShowCredits] = useState(false);
+
 
 
   function handleDifficulty(event) {
@@ -31,13 +34,17 @@ export default function useMenu() {
     setIsKatakana(event.target.checked);
   }
 
+  function handleCustom(event) {
+    setIsCustom(event.target.checked);
+  }
+
   function handleRandomFont(event) {
     setIsRandomFont(event.target.checked);
   }
 
   function handleQuizStart() {
-    if(isHiragana || isKatakana){
-    setShow(false);
+    if(isHiragana || isKatakana || !isCustom){
+    setShowMenu(false);
     setStartQuiz(true);
     }
     else
@@ -48,26 +55,36 @@ export default function useMenu() {
   }
 
   function handleLearnChoice(learnType) {
-    setShow(false);
+    setShowMenu(false);
     setLearn(learnType);
+  }
+
+  function closeCharacterModal(customCharacterArray) {
+    setCustomCharacterArray(customCharacterArray);
+    console.log(customCharacterArray);
+    setIsCustom(false);
   }
 
   return {
     startQuiz,
     learn,
-    show,
+    showMenu,
     difficulty,
     isDakutan,
     isHiragana,
     isKatakana,
+    isCustom,
     isRandomFont,
     showCredits,
+    customCharacterArray,
     handleDifficulty,
     handleDakutan,
     handleRandomFont,
     handleQuizStart,
     handleLearnChoice,
     handleHiragana,
-    handleKatakana
+    handleKatakana,
+    handleCustom,
+    closeCharacterModal
   };
 }
