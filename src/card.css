@@ -66,5 +66,9 @@
     .mobile-card{
     scale: 90%;
     }
+
+    .quiz-card{
+      scale: 75%;
+      }
     
   }
