@@ -17,7 +17,6 @@ export default function AnswerInput({
       {!pause && (
         <input
           id="kanaInput"
-          autoFocus
           type="text"
           value={input}
           onChange={handleChange}
