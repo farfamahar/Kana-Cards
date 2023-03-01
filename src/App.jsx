@@ -105,7 +105,7 @@ function App() {
         />
       )}
       {learn && <KanaLearn quiz={learn} />}
-      {isCustom && <ChooseCharacters closeCharacterModal={closeCharacterModal}/>}
+      {isCustom && <ChooseCharacters initialCharacterArray={customCharacterArray} closeCharacterModal={closeCharacterModal}/>}
 
 
       {showMenu && <div className="bg-scroll"> </div>}

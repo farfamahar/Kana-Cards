@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { hiragana } from "../data/hiragana";
 import PropTypes from "prop-types";
 
-export default function ChooseCharacters({closeCharacterModal}) {
-  let [characterArray, setCharacterArray] = useState([]);
+
+export default function ChooseCharacters({initialCharacterArray,closeCharacterModal}) {
+  let [characterArray, setCharacterArray] = useState(initialCharacterArray);
 
   function toggleCharacterInArray(kana) {
     // Check if the character is already in the array
@@ -23,7 +24,7 @@ export default function ChooseCharacters({closeCharacterModal}) {
   console.log(characterArray);
 
   let hirganaChart = hiragana.map((kana) => {
-    const [isSelected, setIsSelected] = useState(false);
+    const isSelected = characterArray.some((c) => c.kana === kana.kana);
     const className = `text-2xl cursor-pointer ${isSelected ? "underline decoration-sky-500 decoration-4" : ""}`;
 
     return (
@@ -32,7 +33,6 @@ export default function ChooseCharacters({closeCharacterModal}) {
         key={kana.kana}
         onClick={() => {
           toggleCharacterInArray(kana);
-          setIsSelected(!isSelected); // Toggle the state variable when the element is clicked
         }}
       >
         {kana.kana}
@@ -66,4 +66,5 @@ export default function ChooseCharacters({closeCharacterModal}) {
 
 ChooseCharacters.propTypes = {
     closeCharacterModal: PropTypes.func.isRequired,
+    initialCharacterArray: PropTypes.array
   };
