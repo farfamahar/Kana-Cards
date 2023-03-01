@@ -83,7 +83,7 @@ function KanaQuiz({ quizType, custom, difficulty, dakutan, randomFont, customCha
   }
 
   return (
-    <div className="sm:min-h-screen centerFlex bg-slate-50 mobile-card">
+    <div className="sm:min-h-screen centerFlex bg-slate-50 quiz-card">
       {iterator < kana.length + 1 ? (
         <div
           className={
