@@ -40,7 +40,8 @@ Kana Cards provides the following features:
 ## Roadmap
 
 - Font filtering
-- Character filtering
+- <s>Character filtering </s> (supports hiragana & katakana, dakutan/handakuon soon)
+- Premade decks
 - Dakuten and handakuon learn mode
 - Audio only quiz mode
 - Difficulty settings
