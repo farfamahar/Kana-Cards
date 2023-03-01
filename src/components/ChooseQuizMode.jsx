@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 //Renders two buttons choose which type of quiz to take (Hiragana or Katakana)
 export default function ChooseQuizMode({handleQuizType}) {
   return (
-    <div className="flex items-center mb-4 mt-4">
+    <div className="flex items-center mb-4 mt-4 overflow-auto">
       <input
         id="hiragana"
         type="radio"
