@@ -57,7 +57,7 @@ export default function ChooseDifficulty({ handleDifficulty, difficulty }) {
           </label>
         </div>
       </div>
-      <p className="text-slate-400 text-xs mt-2">
+      <p className="text-slate-400 text-xs mt-2 mb-4">
         {" "}
         {difficulty} seconds to answer
       </p>

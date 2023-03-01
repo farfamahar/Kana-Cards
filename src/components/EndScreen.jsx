@@ -17,9 +17,9 @@ export default function EndScreen({ correct, kanaLength }) {
         </p>
         <p className="text-center text-5xl font-bold uppercase m-6 p-4">
           {" "}
-          {correct == 46 || correct == 71 ? "🎉🎉🎉" : ""}{" "}
+          {correct == kanaLength ? "🎉🎉🎉" : ""}{" "}
         </p>
-        {correct == 46 || correct == 71 ? (
+        {correct == kanaLength ? (
           <Confetti
             width={window.innerWidth}
             height={window.innerHeight}

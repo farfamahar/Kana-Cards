@@ -9,9 +9,8 @@ export default function useMenu() {
   const [showMenu, setShowMenu] = useState(true);
   const [difficulty, setDifficulty] = useState(10);
   const [isDakutan, setIsDakutan] = useState(false);
-  const [isHiragana, setIsHiragana] = useState(false);
-  const [isKatakana, setIsKatakana] = useState(false);
   const [isCustom, setIsCustom] = useState(false);
+  const [quizType, setQuizType] = useState("hiragana");
   const [customCharacterArray, setCustomCharacterArray] = useState([]);
   const [isRandomFont, setIsRandomFont] = useState(false);
   const [showCredits, setShowCredits] = useState(false);
@@ -26,16 +25,11 @@ export default function useMenu() {
     setIsDakutan(event.target.checked);
   }
 
-  function handleHiragana(event) {
-    setIsHiragana(event.target.checked);
-  }
-
-  function handleKatakana(event) {
-    setIsKatakana(event.target.checked);
-  }
-
-  function handleCustom(event) {
-    setIsCustom(event.target.checked);
+  function handleQuizType(event) {
+    setQuizType(event.target.id);
+    if(event.target.id == 'custom'){
+      setIsCustom(event.target.checked);
+    }
   }
 
   function handleRandomFont(event) {
@@ -43,14 +37,15 @@ export default function useMenu() {
   }
 
   function handleQuizStart() {
-    if(isHiragana || isKatakana || !isCustom){
+    if(quizType == 'custom' && customCharacterArray.length < 1){
+      toast('Custom quiz needs at least 1 character', {
+        icon: '❗'
+      });
+    }
+    else{
     setShowMenu(false);
     setStartQuiz(true);
     }
-    else
-    toast('Choose an alphabet', {
-      icon: '❗'
-    });
 
   }
 
@@ -71,20 +66,17 @@ export default function useMenu() {
     showMenu,
     difficulty,
     isDakutan,
-    isHiragana,
-    isKatakana,
     isCustom,
     isRandomFont,
     showCredits,
     customCharacterArray,
+    quizType,
     handleDifficulty,
     handleDakutan,
     handleRandomFont,
     handleQuizStart,
     handleLearnChoice,
-    handleHiragana,
-    handleKatakana,
-    handleCustom,
+    handleQuizType,
     closeCharacterModal
   };
 }

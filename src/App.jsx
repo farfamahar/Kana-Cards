@@ -12,8 +12,7 @@ import ChooseLearnMode from "./components/ChooseLearnMode";
 import ChooseQuizMode from "./components/ChooseQuizMode";
 import Credits from "./components/Credits";
 import ChooseCharacters from "./components/ChooseCharacters";
-import { Toaster } from 'react-hot-toast';
-
+import { Toaster } from "react-hot-toast";
 
 AOS.init();
 
@@ -24,26 +23,21 @@ function App() {
     showMenu,
     difficulty,
     isDakutan,
-    isHiragana,
-    isKatakana,
     isCustom,
     isRandomFont,
     customCharacterArray,
+    quizType,
     handleDifficulty,
     handleDakutan,
-    handleHiragana,
-    handleKatakana,
-    handleCustom,
+    handleQuizType,
     handleRandomFont,
     handleQuizStart,
     handleLearnChoice,
-    closeCharacterModal
-
+    closeCharacterModal,
   } = useMenu();
 
-  console.log(customCharacterArray)
+  console.log(customCharacterArray);
   console.log(difficulty);
-
 
   return (
     <div>
@@ -62,20 +56,21 @@ function App() {
               {" "}
               Quiz
             </h1>
+            <ChooseQuizMode
+              handleQuizType={handleQuizType}
+              // openChooseQuizModal={openChooseQuizModal}
+            />
+
+            {quizType != "custom" && (
+              <ChooseDakutan handleDakutan={handleDakutan} />
+            )}
+
+            <ChooseRandomFont handleRandomFont={handleRandomFont} />
+
             <ChooseDifficulty
               handleDifficulty={handleDifficulty}
               difficulty={difficulty}
             />
-            <ChooseQuizMode
-              handleHiragana={handleHiragana}
-              handleKatakana={handleKatakana}
-              handleCustom={handleCustom}
-              // openChooseQuizModal={openChooseQuizModal}
-            />
-
-            <ChooseDakutan handleDakutan={handleDakutan} />
-
-            <ChooseRandomFont handleRandomFont={handleRandomFont} />
 
             <button
               className="mt-4 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-200 ... bg-blue-500 text-white font-bold py-2 px-4 rounded"
@@ -86,27 +81,27 @@ function App() {
             </button>
 
             <Credits />
-            <Toaster/>
-
+            <Toaster />
           </div>
         </div>
       )}
 
       {startQuiz && (
         <KanaQuiz
-          quizType={startQuiz}
           difficulty={difficulty}
           dakutan={isDakutan}
-          hiragana={isHiragana}
-          katakana={isKatakana}
-          custom={true} //TEMPORARY
+          quizType={quizType}
           customCharacterArray={customCharacterArray}
           randomFont={isRandomFont}
         />
       )}
       {learn && <KanaLearn quiz={learn} />}
-      {isCustom && <ChooseCharacters initialCharacterArray={customCharacterArray} closeCharacterModal={closeCharacterModal}/>}
-
+      {isCustom && (
+        <ChooseCharacters
+          initialCharacterArray={customCharacterArray}
+          closeCharacterModal={closeCharacterModal}
+        />
+      )}
 
       {showMenu && <div className="bg-scroll"> </div>}
     </div>

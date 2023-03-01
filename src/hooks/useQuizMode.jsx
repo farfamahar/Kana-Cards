@@ -140,7 +140,7 @@ export default function useQuizMode(props) {
 
   //Setup Quiz
   useEffect(() => {
-    if (props.hiragana && !props.katakana) {
+    if (props.quizType == 'hiragana') {
       setKana(hiragana);
       // setKana(prev=> ...prev,katakana)
       //append dakuten form to original array
@@ -148,7 +148,7 @@ export default function useQuizMode(props) {
         setKana((prev) => [...prev, ...hiraganaModified]);
       }
     }
-    if (props.katakana && !props.hiragana) {
+    if (props.quizType == 'katakana') {
       setKana(katakana);
       //append dakuten form to original array
       if (props.dakutan == true) {
@@ -156,15 +156,7 @@ export default function useQuizMode(props) {
       }
     }
 
-    if (props.katakana && props.hiragana) {
-      setKana([...katakana,...hiragana]);
-      //append dakuten form to original array
-      if (props.dakutan == true) {
-        setKana((prev) => [...prev, ...katakanaModified,...hiraganaModified]);
-      }
-    }
-
-    if(props.custom){
+    if(props.quizType == 'custom'){
       setKana(props.customCharacterArray)
     }
 
