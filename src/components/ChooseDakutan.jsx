@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 //Renders checkbox to determine if quiz should contain modified kana
 export default function ChooseDakutan({ handleDakutan }) {
   return (
-    <div className="flex items-center mb-4 mt-4">
+    <div className="flex items-center mb-2 mt-4">
       <input
         id="dakutan-checkbox"
         type="checkbox"
@@ -16,7 +16,7 @@ export default function ChooseDakutan({ handleDakutan }) {
         htmlFor="dakutan-checkbox"
         className="ml-2 text-sm font-medium text-gray-900 cursor-pointer"
       >
-        Include dakuten and handakuon
+        Add dakuten and handakuon
       </label>
     </div>
   );

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 //Renders the checkbox to determine if user wants to take quiz with randomized fonts
 export default function ChooseRandomFont({ handleRandomFont }) {
   return (
-    <div className="flex items-center mb-4 mt-4">
+    <div className="flex items-center mb-4">
       <input
         id="font-checkbox"
         type="checkbox"
