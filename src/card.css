@@ -69,6 +69,7 @@
 
     .quiz-card{
       scale: 60%;
+      margin-top: -75px;
       }
     
   }
