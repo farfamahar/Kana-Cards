@@ -14,13 +14,13 @@ export default function ChooseCharacters({
     <>
       <div
         data-aos="slide-up"
-        className=" min-h-screen centerFlex mobile-card justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-non"
+        className=" min-h-screen centerFlex justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-non mobile-card"
       >
-        <div className="text-black max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pt-16 pr-20 pl-20 pb-8">
+        <div className="text-black max-w-lg rounded-lg overflow-hidden shadow-lg bg-white soft-shadow pt-16 pr-12 pl-12 sm:pr-12 sm:pl-12 md:pl-24 md:pr-24 pb-8">
           <div className="grid grid-cols-5 grid-rows-10 gap-6 gap-x-12">
             {chart}
           </div>
-          <div className="justify-end  border-t border-solid border-slate-200 rounded-b p-4">
+          <div className="  border-t border-solid border-slate-200 rounded-b p-4">
             <div className="flex justify-between ">
               <button
                 className="background-transparent text-sm outline-none focus:outline-none ease-linear transition-all duration-150"
