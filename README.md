@@ -35,6 +35,7 @@ Kana Cards provides the following features:
 
 - ReactJS
 - Vercel
+- Vite
 - TailwindCSS
 
 ## Roadmap
